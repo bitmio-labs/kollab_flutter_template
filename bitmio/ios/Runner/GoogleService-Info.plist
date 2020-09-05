@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>285023124609-iepu560rmqg20lh92ifr337f1hrhidki.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.285023124609-iepu560rmqg20lh92ifr337f1hrhidki</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB0GMk5GKDbuzxgO6zaOpXlT9cWCAyEVCE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>285023124609</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.blackbeltlabs.bitmio</string>
+	<key>PROJECT_ID</key>
+	<string>bitmio</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bitmio.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:285023124609:ios:4cb7e6f229dd8ddc6c6180</string>
+	<key>DATABASE_URL</key>
+	<string>https://bitmio.firebaseio.com</string>
+</dict>
+</plist>
