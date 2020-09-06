@@ -11,6 +11,9 @@ BitmioTheme _$BitmioThemeFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     domain: json['domain'] as String,
     primary_color: json['primary_color'] as String,
+    tabs: (json['tabs'] as List)
+        .map((e) => TabModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
     onboarding:
         OnboardingTheme.fromJson(json['onboarding'] as Map<String, dynamic>),
     welcome: WelcomeTheme.fromJson(json['welcome'] as Map<String, dynamic>),
@@ -27,12 +30,40 @@ Map<String, dynamic> _$BitmioThemeToJson(BitmioTheme instance) =>
       'id': instance.id,
       'domain': instance.domain,
       'primary_color': instance.primary_color,
+      'tabs': instance.tabs,
       'onboarding': instance.onboarding,
       'welcome': instance.welcome,
       'login': instance.login,
       'signup': instance.signup,
       'contacts': instance.contacts,
       'documents': instance.documents,
+    };
+
+TabModel _$TabModelFromJson(Map<String, dynamic> json) {
+  return TabModel(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    icon: json['icon'] as String,
+    widget: WidgetModel.fromJson(json['widget'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TabModelToJson(TabModel instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'icon': instance.icon,
+      'widget': instance.widget,
+    };
+
+WidgetModel _$WidgetModelFromJson(Map<String, dynamic> json) {
+  return WidgetModel(
+    type: json['type'] as String,
+  );
+}
+
+Map<String, dynamic> _$WidgetModelToJson(WidgetModel instance) =>
+    <String, dynamic>{
+      'type': instance.type,
     };
 
 OnboardingTheme _$OnboardingThemeFromJson(Map<String, dynamic> json) {

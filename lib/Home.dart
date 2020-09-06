@@ -1,17 +1,18 @@
 import 'package:kollab_contacts/kollab_contacts.dart';
 
+import 'Dashboard.dart';
 import 'StyleGuide.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'model/AppState.dart';
 import 'services/navigation_service.dart';
 import 'locator.dart';
 
 import 'Activities.dart';
-import 'Dashboard.dart';
 import 'Timeline.dart';
 import 'DocumentsList.dart';
 import 'globals.dart';
-import 'model/AppState.dart';
+import 'theme.dart';
 
 class Tab {
   String name;
@@ -34,42 +35,55 @@ class LoggedIn extends StatefulWidget {
   }
 }
 
+final iconDict = {
+  'omi.home': OMIcons.home,
+  'check_circle_outline': Icons.check_circle_outline,
+  'notifications_none': Icons.notifications_none,
+  'omi.insertDriveFile': OMIcons.insertDriveFile,
+  'person_outline': Icons.person_outline
+};
+
+IconData iconFromName(String name) {
+  final icon = iconDict[name];
+
+  if (icon == null) {
+    return Icons.home;
+  }
+
+  return icon;
+}
+
+Widget widgetFromType(String type, AppState state) {
+  switch (type) {
+    case 'dashboard':
+      return DashboardTab(model: state.dashboard);
+    case 'card_list':
+      return TimelineTab(phases: state.phases);
+    case 'activity_list':
+      return ActivitiesTab(activities: state.activities);
+    case 'document_list':
+      return DocumentsScene(documents: state.documents);
+    case 'contact_list':
+      return ContactsScene(contacts: state.contacts, theme: theme);
+    default:
+      return PlaceholderWidget('Unknown widget of type $type');
+  }
+}
+
 class _LoggedInState extends State<LoggedIn> {
   int currentIndex;
+  final theme = BitmioTheme.shared;
 
   _LoggedInState({this.currentIndex});
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final tabs = [
-    Tab(
-        name: "Home",
-        route: '/home',
-        icon: OMIcons.home,
-        body: (state) => DashboardTab(model: state.dashboard)),
-    Tab(
-        name: "Schritte",
-        route: '/cards',
-        icon: Icons.check_circle_outline,
-        body: (state) => TimelineTab(phases: state.phases)),
-    Tab(
-        name: "Aktivitäten",
-        route: '/activities',
-        icon: Icons.notifications_none,
-        body: (state) => ActivitiesTab(
-              activities: state.activities,
-            )),
-    Tab(
-      name: "Dokumente",
-      route: '/files',
-      icon: OMIcons.insertDriveFile,
-      body: (state) => DocumentsScene(documents: state.documents),
-    ),
-    Tab(
-        name: "Team",
-        route: '/contacts',
-        icon: Icons.person_outline,
-        body: (state) => ContactsScene(contacts: state.contacts, theme: theme))
-  ];
+  final tabs = BitmioTheme.shared.tabs
+      .map((e) => Tab(
+          name: e.name,
+          route: '/${e.id}',
+          icon: iconFromName(e.icon),
+          body: (state) => widgetFromType(e.widget.type, state)))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +124,6 @@ class _LoggedInState extends State<LoggedIn> {
     widget.reloadState();
     final tab = tabs[index];
     _navigationService.navigateTo(tab.route);
-//
-//    setState(() {
-//      currentIndex = index;
-//    });
   }
 }
 

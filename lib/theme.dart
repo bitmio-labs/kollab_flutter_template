@@ -21,6 +21,7 @@ class BitmioTheme {
   final String id;
   final String domain;
   final String primary_color;
+  final List<TabModel> tabs;
   final OnboardingTheme onboarding;
   final WelcomeTheme welcome;
   final LoginTheme login;
@@ -36,6 +37,7 @@ class BitmioTheme {
       {this.id,
       this.domain,
       this.primary_color,
+      this.tabs,
       this.onboarding,
       this.welcome,
       this.login,
@@ -46,6 +48,29 @@ class BitmioTheme {
   factory BitmioTheme.fromJson(Map<String, dynamic> json) =>
       _$BitmioThemeFromJson(json);
   Map<String, dynamic> toJson() => _$BitmioThemeToJson(this);
+}
+
+@JsonSerializable(nullable: false)
+class TabModel {
+  String id;
+  String name;
+  String icon;
+  WidgetModel widget;
+
+  TabModel({this.id, this.name, this.icon, this.widget});
+  factory TabModel.fromJson(Map<String, dynamic> json) =>
+      _$TabModelFromJson(json);
+  Map<String, dynamic> toJson() => _$TabModelToJson(this);
+}
+
+@JsonSerializable(nullable: false)
+class WidgetModel {
+  String type;
+
+  WidgetModel({this.type});
+  factory WidgetModel.fromJson(Map<String, dynamic> json) =>
+      _$WidgetModelFromJson(json);
+  Map<String, dynamic> toJson() => _$WidgetModelToJson(this);
 }
 
 @JsonSerializable(nullable: false)
