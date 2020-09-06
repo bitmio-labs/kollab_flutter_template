@@ -1,5 +1,6 @@
 import 'package:kollab_template/tabs/helpers.dart';
 
+import 'Settings.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'model/AppState.dart';
@@ -45,18 +46,10 @@ class _LoggedInState extends State<LoggedIn> {
 
   @override
   Widget build(BuildContext context) {
+    final drawerContent = DrawerContent(model: widget.appState.settings);
     return Scaffold(
+      drawer: Drawer(child: drawerContent),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: currentIndex == 0
-            ? IconButton(
-                icon: new Icon(Icons
-                    .settings /*, color: StyleGuide().navigationBarButtonColor*/),
-                onPressed: () {
-                  _navigationService.pushNamed('/settings');
-                },
-              )
-            : null,
         title: Text(tabs[currentIndex].name),
       ),
       body: tabs[currentIndex].body(widget.appState),

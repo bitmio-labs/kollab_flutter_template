@@ -6,80 +6,70 @@ import 'package:url_launcher/url_launcher.dart';
 import 'helpers/locator.dart';
 import 'services/navigation_service.dart';
 
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
 import 'API.dart';
 
-class SettingsWidget extends StatelessWidget {
+String gravatarURL(String email) {
+  final emailHash = md5.convert(utf8.encode(email)).toString();
+
+  return 'https://www.gravatar.com/avatar/$emailHash?s=200&d=mp';
+}
+
+class DrawerContent extends StatelessWidget {
   final SettingsModel model;
   final NavigationService _navigationService = locator<NavigationService>();
 
-  SettingsWidget({this.model});
+  DrawerContent({this.model});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Einstellungen'),
-      ),
-      body: ListView(
-        children: <Widget>[
-          SettingsSectionHeader('Account'),
-          if (API.shared.isLoggedIn)
-            Card(
-              child: ListTile(
-                  title: Text(model.email),
-                  leading: Icon(Icons.account_circle)),
-            ),
-          if (API.shared.isLoggedIn)
-            Card(
-              child: ListTile(
-                title: Text('Passwort ändern'),
-                leading: Icon(Icons.lock),
-                trailing: Icon(Icons.chevron_right),
-                onTap: () => openUrl(model.change_password_url),
-              ),
-            ),
-          Card(
-            child: ListTile(
-              title: Text('Ausloggen'),
-              leading: Icon(Icons.exit_to_app),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => logout(context),
-            ),
+    return ListView(
+      //padding: EdgeInsets.zero,
+      children: <Widget>[
+        SettingsSectionHeader('Account'),
+        if (API.shared.isLoggedIn)
+          ListTile(
+              title: Text(model.email), leading: Icon(Icons.account_circle)),
+        if (API.shared.isLoggedIn)
+          ListTile(
+            title: Text('Passwort ändern'),
+            leading: Icon(Icons.lock),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () => openUrl(model.change_password_url),
           ),
-          SettingsSectionHeader('Folge uns'),
-          Card(
-            child: ListTile(
-              title: Text('Facebook'),
-              leading: Icon(MdiIcons.facebook),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => openUrl(model.facebook_url),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('Instagram'),
-              leading: Icon(MdiIcons.instagram),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => openUrl(model.instagram_url),
-            ),
-          ),
-          SettingsSectionHeader('Rechtliches'),
-          Card(
-            child: ListTile(
-              title: Text('Impressum'),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => openUrl(model.legal_url),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('Datenschutz'),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => openUrl(model.privacy_url),
-            ),
-          ),
-        ],
-      ),
+        ListTile(
+          title: Text('Ausloggen'),
+          leading: Icon(Icons.exit_to_app),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => logout(context),
+        ),
+        SettingsSectionHeader('Folge uns'),
+        ListTile(
+          title: Text('Facebook'),
+          leading: Icon(MdiIcons.facebook),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => openUrl(model.facebook_url),
+        ),
+        ListTile(
+          title: Text('Instagram'),
+          leading: Icon(MdiIcons.instagram),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => openUrl(model.instagram_url),
+        ),
+        SettingsSectionHeader('Rechtliches'),
+        ListTile(
+          title: Text('Impressum'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => openUrl(model.legal_url),
+        ),
+        ListTile(
+          title: Text('Datenschutz'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => openUrl(model.privacy_url),
+        )
+      ],
     );
   }
 

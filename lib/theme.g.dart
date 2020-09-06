@@ -9,6 +9,7 @@ part of 'theme.dart';
 BitmioTheme _$BitmioThemeFromJson(Map<String, dynamic> json) {
   return BitmioTheme(
     id: json['id'] as String,
+    name: json['name'] as String,
     domain: json['domain'] as String,
     primary_color: json['primary_color'] as String,
     sidebar: (json['sidebar'] as List)
@@ -31,6 +32,7 @@ BitmioTheme _$BitmioThemeFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$BitmioThemeToJson(BitmioTheme instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'domain': instance.domain,
       'primary_color': instance.primary_color,
       'sidebar': instance.sidebar,

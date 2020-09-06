@@ -19,6 +19,7 @@ class BitmioTheme {
   }
 
   final String id;
+  final String name;
   final String domain;
   final String primary_color;
   final List<NavigationSection> sidebar;
@@ -36,6 +37,7 @@ class BitmioTheme {
 
   BitmioTheme(
       {this.id,
+      this.name,
       this.domain,
       this.primary_color,
       this.sidebar,

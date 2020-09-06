@@ -7,7 +7,6 @@ import 'services/navigation_service.dart';
 import 'theme.dart';
 
 import 'onboarding.dart';
-import 'settings.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -104,8 +103,7 @@ class _HomeState extends State<Home> {
             logo: logoImage),
         '/explore': (context) =>
             LoggedIn(appState: appState, reloadState: fetchState, index: 0),
-        '/onboarding': (context) => BZOnboarding(),
-        '/settings': (context) => SettingsWidget(model: appState.settings)
+        '/onboarding': (context) => BZOnboarding()
       },
       onGenerateRoute: (settings) {
         switch (settings.name) {
