@@ -1,6 +1,6 @@
 import 'theme.dart';
 
-import 'HexColor.dart';
+import 'helpers/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

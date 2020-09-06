@@ -11,8 +11,11 @@ BitmioTheme _$BitmioThemeFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     domain: json['domain'] as String,
     primary_color: json['primary_color'] as String,
+    sidebar: (json['sidebar'] as List)
+        .map((e) => NavigationSection.fromJson(e as Map<String, dynamic>))
+        .toList(),
     tabs: (json['tabs'] as List)
-        .map((e) => TabModel.fromJson(e as Map<String, dynamic>))
+        .map((e) => PageModel.fromJson(e as Map<String, dynamic>))
         .toList(),
     onboarding:
         OnboardingTheme.fromJson(json['onboarding'] as Map<String, dynamic>),
@@ -30,6 +33,7 @@ Map<String, dynamic> _$BitmioThemeToJson(BitmioTheme instance) =>
       'id': instance.id,
       'domain': instance.domain,
       'primary_color': instance.primary_color,
+      'sidebar': instance.sidebar,
       'tabs': instance.tabs,
       'onboarding': instance.onboarding,
       'welcome': instance.welcome,
@@ -39,31 +43,35 @@ Map<String, dynamic> _$BitmioThemeToJson(BitmioTheme instance) =>
       'documents': instance.documents,
     };
 
-TabModel _$TabModelFromJson(Map<String, dynamic> json) {
-  return TabModel(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    icon: json['icon'] as String,
-    widget: WidgetModel.fromJson(json['widget'] as Map<String, dynamic>),
+NavigationSection _$NavigationSectionFromJson(Map<String, dynamic> json) {
+  return NavigationSection(
+    title: json['title'] as String,
+    items: (json['items'] as List)
+        .map((e) => PageModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
-Map<String, dynamic> _$TabModelToJson(TabModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'icon': instance.icon,
-      'widget': instance.widget,
+Map<String, dynamic> _$NavigationSectionToJson(NavigationSection instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'items': instance.items,
     };
 
-WidgetModel _$WidgetModelFromJson(Map<String, dynamic> json) {
-  return WidgetModel(
-    type: json['type'] as String,
+PageModel _$PageModelFromJson(Map<String, dynamic> json) {
+  return PageModel(
+    url: json['url'] as String,
+    title: json['title'] as String,
+    icon: json['icon'] as String,
+    widget: json['widget'] as String,
   );
 }
 
-Map<String, dynamic> _$WidgetModelToJson(WidgetModel instance) =>
-    <String, dynamic>{
-      'type': instance.type,
+Map<String, dynamic> _$PageModelToJson(PageModel instance) => <String, dynamic>{
+      'url': instance.url,
+      'title': instance.title,
+      'icon': instance.icon,
+      'widget': instance.widget,
     };
 
 OnboardingTheme _$OnboardingThemeFromJson(Map<String, dynamic> json) {

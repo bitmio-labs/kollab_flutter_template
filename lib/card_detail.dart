@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'FolderDetail.dart';
-import 'StyleGuide.dart';
+import 'folder_detail.dart';
+import 'styleguide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'API.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
 import 'model/AppState.dart';
-import 'SectionTitle.dart' as MySectionTitle;
+import 'shared/section_title.dart' as MySectionTitle;
 import 'globals.dart';
 import 'shared/card_detail.dart';
 import 'shared/checklist.dart';

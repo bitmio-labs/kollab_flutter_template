@@ -1,17 +1,10 @@
-import 'package:kollab_contacts/kollab_contacts.dart';
+import 'package:kollab_template/tabs/helpers.dart';
 
-import 'Dashboard.dart';
-import 'StyleGuide.dart';
+import 'styleguide.dart';
 import 'package:flutter/material.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'model/AppState.dart';
 import 'services/navigation_service.dart';
-import 'locator.dart';
-
-import 'Activities.dart';
-import 'Timeline.dart';
-import 'DocumentsList.dart';
-import 'globals.dart';
+import 'helpers/locator.dart';
 import 'theme.dart';
 
 class Tab {
@@ -35,41 +28,6 @@ class LoggedIn extends StatefulWidget {
   }
 }
 
-final iconDict = {
-  'omi.home': OMIcons.home,
-  'check_circle_outline': Icons.check_circle_outline,
-  'notifications_none': Icons.notifications_none,
-  'omi.insertDriveFile': OMIcons.insertDriveFile,
-  'person_outline': Icons.person_outline
-};
-
-IconData iconFromName(String name) {
-  final icon = iconDict[name];
-
-  if (icon == null) {
-    return Icons.home;
-  }
-
-  return icon;
-}
-
-Widget widgetFromType(String type, AppState state) {
-  switch (type) {
-    case 'dashboard':
-      return DashboardTab(model: state.dashboard);
-    case 'card_list':
-      return TimelineTab(phases: state.phases);
-    case 'activity_list':
-      return ActivitiesTab(activities: state.activities);
-    case 'document_list':
-      return DocumentsScene(documents: state.documents);
-    case 'contact_list':
-      return ContactsScene(contacts: state.contacts, theme: theme);
-    default:
-      return PlaceholderWidget('Unknown widget of type $type');
-  }
-}
-
 class _LoggedInState extends State<LoggedIn> {
   int currentIndex;
   final theme = BitmioTheme.shared;
@@ -79,10 +37,10 @@ class _LoggedInState extends State<LoggedIn> {
 
   final tabs = BitmioTheme.shared.tabs
       .map((e) => Tab(
-          name: e.name,
-          route: '/${e.id}',
+          name: e.title,
+          route: e.url,
           icon: iconFromName(e.icon),
-          body: (state) => widgetFromType(e.widget.type, state)))
+          body: (state) => widgetFromType(e.widget, state)))
       .toList();
 
   @override
@@ -124,16 +82,5 @@ class _LoggedInState extends State<LoggedIn> {
     widget.reloadState();
     final tab = tabs[index];
     _navigationService.navigateTo(tab.route);
-  }
-}
-
-class PlaceholderWidget extends StatelessWidget {
-  final String title;
-
-  PlaceholderWidget(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(title));
   }
 }

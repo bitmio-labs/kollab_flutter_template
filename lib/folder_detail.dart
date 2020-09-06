@@ -1,14 +1,13 @@
-
 import 'dart:io';
 
-import 'StyleGuide.dart';
+import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'model/AppState.dart';
-import 'HexColor.dart';
+import 'helpers/hexcolor.dart';
 
 class FolderDetailScene extends StatelessWidget {
   final Folder folder;
@@ -23,14 +22,12 @@ class FolderDetailScene extends StatelessWidget {
         ),
         body: Container(
           color: StyleGuide().tabBackgroundColor,
-          child: ListView(
-              children: [
-                Container(height: 25),
-                DocumentList(folder.documents),
-                Container(height: 25),
-              ]),
-        )
-    );
+          child: ListView(children: [
+            Container(height: 25),
+            DocumentList(folder.documents),
+            Container(height: 25),
+          ]),
+        ));
   }
 }
 
@@ -47,8 +44,10 @@ class DocumentList extends StatelessWidget {
           return Material(
             type: MaterialType.card,
             child: InkWell(
-              onTap: () { showDocument(context, each); },
-              child:  DocumentListItem(each),
+              onTap: () {
+                showDocument(context, each);
+              },
+              child: DocumentListItem(each),
             ),
           );
         }).toList());
@@ -60,10 +59,8 @@ class DocumentList extends StatelessWidget {
       return;
     }
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DocumentDetailScene(document))
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DocumentDetailScene(document)));
   }
 }
 
@@ -94,22 +91,20 @@ class DocumentListItem extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: Image.network(document.thumbnailURL, fit: BoxFit.cover),
-                )
-            ),
+                  child:
+                      Image.network(document.thumbnailURL, fit: BoxFit.cover),
+                )),
             Container(width: StyleGuide().cardIconTitleSpacing),
             Expanded(
                 child: Container(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(document.name, style: StyleGuide().cardTitleStyle),
-                          SizedBox(height: 6),
-                          Text(document.date, style: StyleGuide().cardPropertyStyle)
-                        ]) )
-            )
-          ])
-      ),
+                  Text(document.name, style: StyleGuide().cardTitleStyle),
+                  SizedBox(height: 6),
+                  Text(document.date, style: StyleGuide().cardPropertyStyle)
+                ])))
+          ])),
     );
   }
 }
@@ -133,11 +128,9 @@ class DocumentDetailScene extends StatelessWidget {
         ),
         body: Container(
             child: WebView(
-              initialUrl: document.url,
-              initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
-            )
-        )
-    );
+          initialUrl: document.url,
+          initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
+        )));
   }
 
   shareDocument() {

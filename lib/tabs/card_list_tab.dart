@@ -1,17 +1,17 @@
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'CardDetail.dart';
-import 'SectionTitle.dart';
-import 'StyleGuide.dart';
+import '../card_detail.dart';
+import '../shared/section_title.dart';
+import '../styleguide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'TabHeader.dart';
-import 'model/AppState.dart';
+import '../shared/tab_header.dart';
+import '../model/AppState.dart';
 
-class TimelineTab extends StatelessWidget {
+class CardListTab extends StatelessWidget {
   final TimelinePhases phases;
 
-  TimelineTab({this.phases});
+  CardListTab({this.phases});
 
   Widget build(BuildContext context) {
     return Container(

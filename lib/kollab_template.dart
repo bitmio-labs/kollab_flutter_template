@@ -4,7 +4,7 @@ import 'theme.dart';
 import 'package:flutter/material.dart';
 import 'API.dart';
 import 'app.dart';
-import 'locator.dart' as di;
+import 'helpers/locator.dart' as di;
 import 'globals.dart';
 
 void runKollab() async {

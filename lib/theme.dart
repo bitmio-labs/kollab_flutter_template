@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'HexColor.dart';
+import 'helpers/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -21,7 +21,8 @@ class BitmioTheme {
   final String id;
   final String domain;
   final String primary_color;
-  final List<TabModel> tabs;
+  final List<NavigationSection> sidebar;
+  final List<PageModel> tabs;
   final OnboardingTheme onboarding;
   final WelcomeTheme welcome;
   final LoginTheme login;
@@ -37,6 +38,7 @@ class BitmioTheme {
       {this.id,
       this.domain,
       this.primary_color,
+      this.sidebar,
       this.tabs,
       this.onboarding,
       this.welcome,
@@ -51,26 +53,28 @@ class BitmioTheme {
 }
 
 @JsonSerializable(nullable: false)
-class TabModel {
-  String id;
-  String name;
-  String icon;
-  WidgetModel widget;
+class NavigationSection {
+  String title;
+  List<PageModel> items;
 
-  TabModel({this.id, this.name, this.icon, this.widget});
-  factory TabModel.fromJson(Map<String, dynamic> json) =>
-      _$TabModelFromJson(json);
-  Map<String, dynamic> toJson() => _$TabModelToJson(this);
+  NavigationSection({this.title, this.items});
+
+  factory NavigationSection.fromJson(Map<String, dynamic> json) =>
+      _$NavigationSectionFromJson(json);
+  Map<String, dynamic> toJson() => _$NavigationSectionToJson(this);
 }
 
 @JsonSerializable(nullable: false)
-class WidgetModel {
-  String type;
+class PageModel {
+  String url;
+  String title;
+  String icon;
+  String widget;
 
-  WidgetModel({this.type});
-  factory WidgetModel.fromJson(Map<String, dynamic> json) =>
-      _$WidgetModelFromJson(json);
-  Map<String, dynamic> toJson() => _$WidgetModelToJson(this);
+  PageModel({this.url, this.title, this.icon, this.widget});
+  factory PageModel.fromJson(Map<String, dynamic> json) =>
+      _$PageModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PageModelToJson(this);
 }
 
 @JsonSerializable(nullable: false)

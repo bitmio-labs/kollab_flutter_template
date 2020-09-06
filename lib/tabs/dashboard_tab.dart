@@ -1,16 +1,16 @@
 import 'package:kollab_contacts/kollab_contacts.dart';
 
-import 'globals.dart';
-import 'model/AppState.dart';
+import '../globals.dart';
+import '../model/AppState.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-import 'Activities.dart';
-import 'FolderDetail.dart';
-import 'HexColor.dart';
-import 'StyleGuide.dart';
-import 'Timeline.dart';
+import 'activity_list_tab.dart';
+import '../folder_detail.dart';
+import '../helpers/hexcolor.dart';
+import '../styleguide.dart';
+import 'card_list_tab.dart';
 
 class DashboardTab extends StatelessWidget {
   final DashboardModel model;

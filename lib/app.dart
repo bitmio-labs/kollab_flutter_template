@@ -2,20 +2,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'locator.dart';
+import 'helpers/locator.dart';
 import 'services/navigation_service.dart';
 import 'theme.dart';
 
-import 'Onboarding.dart';
-import 'Settings.dart';
-import 'StyleGuide.dart';
+import 'onboarding.dart';
+import 'settings.dart';
+import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'model/AppState.dart';
 import 'API.dart';
-import 'Home.dart';
+import 'home.dart';
 import 'package:kollab_auth/kollab_auth.dart';
 
 class Home extends StatefulWidget {

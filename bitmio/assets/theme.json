@@ -30,68 +30,37 @@
       }
     ]
   },
+  "sidebar": [],
   "tabs": [
     {
-      "id": "home",
-      "name": "Dashboard",
+      "title": "Dashboard",
       "icon": "omi.home",
-      "widget": {
-        "type": "dashboard",
-        "params": [
-          {
-            "id": "widgets",
-            "value": [
-              {
-                "type": "progress_s"
-              },
-              {
-                "type": "card_list_s"
-              },
-              {
-                "type": "activity_list_s"
-              },
-              {
-                "type": "document_list_s"
-              },
-              {
-                "type": "contact_list_s"
-              }
-            ]
-          }
-        ]
-      }
+      "url": "/home",
+      "widget": "dashboard"
     },
     {
-      "id": "cards",
-      "name": "Schritte",
+      "title": "Schritte",
       "icon": "check_circle_outline",
-      "widget": {
-        "type": "card_list"
-      }
+      "url": "/cards",
+      "widget": "card_list"
     },
     {
-      "id": "activities",
-      "name": "Aktivitäten",
+      "title": "Aktivitäten",
       "icon": "notifications_none",
-      "widget": {
-        "type": "activity_list"
-      }
+      "url": "/activities",
+      "widget": "activity_list"
     },
     {
-      "id": "files",
-      "name": "Dokumente",
+      "title": "Dokumente",
       "icon": "omi.insertDriveFile",
-      "widget": {
-        "type": "document_list"
-      }
+      "url": "/files",
+      "widget": "document_list"
     },
     {
-      "id": "contacts",
-      "name": "Team",
+      "title": "Team",
       "icon": "person_outline",
-      "widget": {
-        "type": "contact_list"
-      }
+      "url": "/contacts",
+      "widget": "contact_list"
     }
   ],
   "welcome": {

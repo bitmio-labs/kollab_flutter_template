@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 
-import 'StyleGuide.dart';
+import '../styleguide.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;

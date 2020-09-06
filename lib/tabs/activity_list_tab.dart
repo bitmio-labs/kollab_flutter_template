@@ -1,11 +1,11 @@
-import 'CardDetail.dart';
+import '../card_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'StyleGuide.dart';
-import 'model/AppState.dart';
-import 'SectionTitle.dart';
-import 'TabHeader.dart';
+import '../styleguide.dart';
+import '../model/AppState.dart';
+import '../shared/section_title.dart';
+import '../shared/tab_header.dart';
 
 class ActivitiesTab extends StatelessWidget {
   final List<ActivityModel> activities;
@@ -28,8 +28,7 @@ class ActivitiesTab extends StatelessWidget {
             ActivitiesList(activities),
             Container(height: 20)
           ],
-        )
-    );
+        ));
   }
 }
 
@@ -44,26 +43,23 @@ class ActivitiesList extends StatelessWidget {
       return Center(child: CircularProgressIndicator());
     }
 
-
     return Wrap(
         runSpacing: StyleGuide().cardListSpacing,
         children: activities.map((each) {
           return Material(
               type: MaterialType.card,
               child: InkWell(
-                onTap: () { if (each.card != null) showCard(context, each.card); },
+                onTap: () {
+                  if (each.card != null) showCard(context, each.card);
+                },
                 child: ActivityListItem(each),
-              )
-          );
-        }).toList()
-    );
+              ));
+        }).toList());
   }
 
   showCard(BuildContext context, TimelineCard card) {
     Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => BZCardDetail(card))
-    );
+        context, MaterialPageRoute(builder: (context) => BZCardDetail(card)));
   }
 }
 
@@ -80,24 +76,23 @@ class ActivityListItem extends StatelessWidget {
           Container(
               width: 51,
               //margin: EdgeInsets.only(right: 25),
-              child: AspectRatio(child: CircleAvatar(
-                  backgroundImage: NetworkImage(model.contact.imageURL)
-              ), aspectRatio: 1,)
-          ),
+              child: AspectRatio(
+                child: CircleAvatar(
+                    backgroundImage: NetworkImage(model.contact.imageURL)),
+                aspectRatio: 1,
+              )),
           Container(width: StyleGuide().cardIconTitleSpacing),
           Expanded(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                        model.message,
-                      style: StyleGuide().cardMessageStyle,
-                        ),
-                    Container(height: StyleGuide().cardTitlePropertySpacing),
-                    Text(model.date, style: StyleGuide().cardPropertyStyle)
-                  ])
-          )
-        ])
-    );
+                Text(
+                  model.message,
+                  style: StyleGuide().cardMessageStyle,
+                ),
+                Container(height: StyleGuide().cardTitlePropertySpacing),
+                Text(model.date, style: StyleGuide().cardPropertyStyle)
+              ]))
+        ]));
   }
 }

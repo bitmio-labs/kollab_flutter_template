@@ -1,19 +1,19 @@
-import 'theme.dart';
+import '../theme.dart';
 
-import 'TabHeader.dart';
+import '../shared/tab_header.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import 'StyleGuide.dart';
-import 'model/AppState.dart';
-import 'FolderDetail.dart';
+import '../styleguide.dart';
+import '../model/AppState.dart';
+import '../folder_detail.dart';
 
-class DocumentsScene extends StatelessWidget {
+class DocumentsListTab extends StatelessWidget {
   final BitmioTheme theme = BitmioTheme.shared;
   final Documents documents;
 
-  DocumentsScene({this.documents});
+  DocumentsListTab({this.documents});
 
   @override
   Widget build(BuildContext context) {
