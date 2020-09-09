@@ -10,8 +10,8 @@ import 'onboarding.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/observer.dart';
 import 'model/AppState.dart';
 import 'API.dart';
 import 'home.dart';
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
 
     final logoImage = Image.asset('images/logo.png');
 
-    FirebaseAnalytics analytics = FirebaseAnalytics();
+    // FirebaseAnalytics analytics = FirebaseAnalytics();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -66,9 +66,9 @@ class _HomeState extends State<Home> {
               ButtonTextTheme.primary, //  <-- this auto selects the right color
         ),
       ),
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
+      // navigatorObservers: [
+      //   FirebaseAnalyticsObserver(analytics: analytics),
+      // ],
       navigatorKey: locator<NavigationService>().navigationKey,
       initialRoute: api.isLoggedIn ? '/home' : '/onboarding',
       routes: {
