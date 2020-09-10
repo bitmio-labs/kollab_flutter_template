@@ -70,10 +70,13 @@ class NavigationSection {
 class PageModel {
   String url;
   String title;
+  String subtitle;
   String icon;
   String widget;
+  String data;
 
-  PageModel({this.url, this.title, this.icon, this.widget});
+  PageModel(
+      {this.url, this.title, this.subtitle, this.icon, this.widget, this.data});
   factory PageModel.fromJson(Map<String, dynamic> json) =>
       _$PageModelFromJson(json);
   Map<String, dynamic> toJson() => _$PageModelToJson(this);

@@ -64,16 +64,20 @@ PageModel _$PageModelFromJson(Map<String, dynamic> json) {
   return PageModel(
     url: json['url'] as String,
     title: json['title'] as String,
+    subtitle: json['subtitle'] as String,
     icon: json['icon'] as String,
     widget: json['widget'] as String,
+    data: json['data'] as String,
   );
 }
 
 Map<String, dynamic> _$PageModelToJson(PageModel instance) => <String, dynamic>{
       'url': instance.url,
       'title': instance.title,
+      'subtitle': instance.subtitle,
       'icon': instance.icon,
       'widget': instance.widget,
+      'data': instance.data,
     };
 
 OnboardingTheme _$OnboardingThemeFromJson(Map<String, dynamic> json) {

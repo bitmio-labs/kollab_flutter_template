@@ -12,6 +12,10 @@ class TabHeader extends StatelessWidget {
         padding: EdgeInsets.only(left: 25, top: 25, right: 25, bottom: 25),
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.centerLeft,
-        child: Text(title.toUpperCase(), style: StyleGuide().tabBannerStyle));
+        child: title != null
+            ? Text(title.toUpperCase(), style: StyleGuide().tabBannerStyle)
+            : SizedBox(
+                height: 0,
+              ));
   }
 }

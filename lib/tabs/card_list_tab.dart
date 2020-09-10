@@ -9,22 +9,24 @@ import '../shared/tab_header.dart';
 import '../model/AppState.dart';
 
 class CardListTab extends StatelessWidget {
+  final String subtitle;
   final TimelinePhases phases;
 
-  CardListTab({this.phases});
+  CardListTab({this.subtitle, this.phases});
 
   Widget build(BuildContext context) {
     return Container(
       color: StyleGuide().tabBackgroundColor,
-      child: Timeline(phases: phases),
+      child: Timeline(title: subtitle, phases: phases),
     );
   }
 }
 
 class Timeline extends StatelessWidget {
+  final String title;
   final TimelinePhases phases;
 
-  Timeline({this.phases});
+  Timeline({this.title, this.phases});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class Timeline extends StatelessWidget {
 
     return ListView(
       children: [
-        Row(children: [TabHeader('Immer bestens vorbereitet.')]),
+        Row(children: [TabHeader(title)]),
         PhasesList(phases: phases),
         SizedBox(
           height: 20,

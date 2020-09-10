@@ -5,6 +5,7 @@ import 'package:kollab_contacts/kollab_contacts.dart';
 import '../API.dart';
 
 class AppState {
+  Map<String, dynamic> json;
   bool isLoggedIn = true;
   List<ActivityModel> activities;
   Documents documents;
@@ -14,7 +15,8 @@ class AppState {
   SettingsModel settings;
 
   AppState(
-      {this.isLoggedIn,
+      {this.json,
+      this.isLoggedIn,
       this.activities,
       this.documents,
       this.contacts,
@@ -27,6 +29,7 @@ class AppState {
     final List<dynamic> activities = json['activities'];
 
     return AppState(
+        json: json,
         isLoggedIn: isLoggedIn,
         activities: List<ActivityModel>.from(
             activities.map((each) => ActivityModel.fromJson(each))),
@@ -35,6 +38,12 @@ class AppState {
         phases: TimelinePhases.fromJson(json['phases']),
         dashboard: DashboardModel.fromJson(json['dashboard']),
         settings: SettingsModel.fromJson(json['settings']));
+  }
+
+  List<dynamic> dataForKey(String name) {
+    final List<dynamic> data = json[name];
+
+    return data;
   }
 }
 

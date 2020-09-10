@@ -48,7 +48,7 @@ class _LoggedInState extends State<LoggedIn> {
           name: e.title,
           route: e.url,
           icon: iconFromName(e.icon),
-          body: (state) => widgetFromType(e.widget, state)))
+          body: (state) => widgetFromType(e, state)))
       .toList();
 
   @override
@@ -110,18 +110,22 @@ class _LoggedInState extends State<LoggedIn> {
       )
     ]);
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final appSwitcherWidth = 110.0;
+    final maxMenuWidth = 250.0;
+    final showAppSwitcher = false;
+    final maxWidth = maxMenuWidth + (showAppSwitcher ? appSwitcherWidth : 0);
+    final drawerWidth = screenWidth < maxWidth ? screenWidth : maxWidth;
+
     final drawerColumns = Row(children: [
-      Container(
-          width: 110,
-          alignment: Alignment.center,
-          color: Colors.black87,
-          child: appSwitcher),
+      if (showAppSwitcher)
+        Container(
+            width: appSwitcherWidth,
+            alignment: Alignment.center,
+            color: Colors.black87,
+            child: appSwitcher),
       Expanded(child: drawerContent)
     ]);
-
-    final screenWidth = MediaQuery.of(context).size.width;
-    final maxWidth = 360.0;
-    final drawerWidth = screenWidth < maxWidth ? screenWidth : maxWidth;
 
     return Scaffold(
       drawer: SizedBox(width: drawerWidth, child: Drawer(child: drawerColumns)),

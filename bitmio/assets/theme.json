@@ -37,31 +37,40 @@
       "title": "Dashboard",
       "icon": "omi.home",
       "url": "/home",
-      "widget": "dashboard"
+      "widget": "dashboard",
+      "data": "dashboard"
     },
     {
-      "title": "Schritte",
+      "title": "Überblick",
+      "subtitle": "Immer bestens vorbereitet.",
       "icon": "check_circle_outline",
       "url": "/cards",
-      "widget": "card_list"
+      "widget": "card_list",
+      "data": "overview"
     },
     {
       "title": "Aktivitäten",
+      "subtitle": "Immer informiert.",
       "icon": "notifications_none",
       "url": "/activities",
-      "widget": "activity_list"
+      "widget": "card_list",
+      "data": "activities_v2"
     },
     {
       "title": "Dokumente",
+      "subtitle": "Alles an einem Ort.",
       "icon": "omi.insertDriveFile",
       "url": "/files",
-      "widget": "document_list"
+      "widget": "document_list",
+      "data": "documents"
     },
     {
       "title": "Team",
+      "subtitle": "Immer in Kontakt.",
       "icon": "person_outline",
       "url": "/contacts",
-      "widget": "contact_list"
+      "widget": "contact_list",
+      "data": "contacts"
     }
   ],
   "welcome": {

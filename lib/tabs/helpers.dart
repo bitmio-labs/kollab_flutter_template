@@ -4,6 +4,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 
 import '../shared/placeholder_widget.dart';
 import '../model/AppState.dart';
+import '../theme.dart';
 import 'activity_list_tab.dart';
 import 'card_list_tab.dart';
 import 'dashboard_tab.dart';
@@ -28,12 +29,16 @@ IconData iconFromName(String name) {
   return icon;
 }
 
-Widget widgetFromType(String type, AppState state) {
-  switch (type) {
+Widget widgetFromType(PageModel page, AppState state) {
+  switch (page.widget) {
     case 'dashboard':
       return DashboardTab(model: state.dashboard);
     case 'card_list':
-      return CardListTab(phases: state.phases);
+      final json = state.dataForKey(page.data);
+      final data = json != null
+          ? TimelinePhases.fromJson(json)
+          : TimelinePhases(items: []);
+      return CardListTab(subtitle: page.subtitle, phases: data);
     case 'activity_list':
       return ActivitiesTab(activities: state.activities);
     case 'document_list':
@@ -41,6 +46,6 @@ Widget widgetFromType(String type, AppState state) {
     case 'contact_list':
       return ContactsScene(contacts: state.contacts, theme: theme);
     default:
-      return PlaceholderWidget('Unknown widget of type $type');
+      return PlaceholderWidget('Unknown widget of type ${page.widget}');
   }
 }
