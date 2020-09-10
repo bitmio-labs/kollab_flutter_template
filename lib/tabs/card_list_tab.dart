@@ -132,6 +132,9 @@ class CardListItem extends StatelessWidget {
                     Text(card.name, style: StyleGuide().cardTitleStyle),
                     SizedBox(height: 10),
                     Wrap(spacing: 10, children: <Widget>[
+                      if (card.description.length > 0)
+                        Icon(MdiIcons.text,
+                            color: StyleGuide().cardPropertyIconColor),
                       if (card.date != null) DateInfo(card.date),
                       if (card.checklists.length > 0)
                         Wrap(
