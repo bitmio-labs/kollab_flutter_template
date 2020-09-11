@@ -1,0 +1,97 @@
+{
+  "id": "bienzenker",
+  "name": "Bien-Zenker Service Center",
+  "domain": "https://bienzenker.bitmio.com",
+  "primary_color": "006AB3",
+  "tab_icon_color": "006AB3",
+  "onboarding": {
+    "continue_label": "Weiter",
+    "skip_label": "Überspringen",
+    "start_label": "Loslegen",
+    "items": [
+      {
+        "title": "WILLKOMMEN IM BIEN-ZENKER SERVICE CENTER",
+        "subtitle": "Mit der Bien-Zenker App haben Sie Ihr Bauprojekt im Griff. Jederzeit und überall."
+      },
+      {
+        "title": "IMMER INFORMIERT",
+        "subtitle": "Sie haben jederzeit Ihren Projektfortschritt und die nächsten Schritte im Blick."
+      },
+      {
+        "title": "IMMER BESTENS VORBEREITET",
+        "subtitle": "Wir informieren Sie über anstehende Aktivitäten und geben dabei wertvolle Hinweise und Tipps!"
+      },
+      {
+        "title": "ALLES AN EINEM ORT",
+        "subtitle": "Alle relevanten Bauunterlagen wie Verträge und Pläne, aber auch Checklisten und vieles mehr finden Sie in Ihrem Dokumenten-Center."
+      },
+      {
+        "title": "IMMER IN KONTAKT",
+        "subtitle": "Alle Ansprechpartner auf einen Click!"
+      }
+    ]
+  },
+  "sidebar": [],
+  "tabs": [
+    {
+      "title": "Dashboard",
+      "icon": "omi.home",
+      "url": "/home",
+      "widget": "dashboard",
+      "data": "dashboard"
+    },
+    {
+      "title": "Überblick",
+      "subtitle": "Immer bestens vorbereitet.",
+      "icon": "check_circle_outline",
+      "url": "/cards",
+      "widget": "card_list",
+      "data": "overview"
+    },
+    {
+      "title": "Aktivitäten",
+      "subtitle": "Immer informiert.",
+      "icon": "notifications_none",
+      "url": "/activities",
+      "widget": "card_list",
+      "data": "activities_v2"
+    },
+    {
+      "title": "Dokumente",
+      "subtitle": "Alles an einem Ort.",
+      "icon": "omi.insertDriveFile",
+      "url": "/files",
+      "widget": "document_list",
+      "data": "documents"
+    },
+    {
+      "title": "Team",
+      "subtitle": "Immer in Kontakt.",
+      "icon": "person_outline",
+      "url": "/contacts",
+      "widget": "contact_list",
+      "data": "contacts"
+    }
+  ],
+  "welcome": {
+    "hero_title": "IHR PERSÖNLICHES SERVICE-CENTER",
+    "login_button_title": "ANMELDEN FÜR BAUHERREN",
+    "signup_button_title": "SERVICE CENTER FREISCHALTEN",
+    "discover_button_title": "DEMO FÜR INTERESSENTEN"
+  },
+  "login": {
+    "login_button_title": "EINLOGGEN",
+    "forgot_login_button_title": "Login vergessen?"
+  },
+  "signup": {
+    "signup_button_title": "REGISTRIEREN",
+    "privacy_link_title": "Mit der Registrierung akzeptieren Sie unsere Datenschutzbestimmungen. Diese finden Sie hier.",
+    "privacy_link": "https://www.bien-zenker.de/service-center/datenschutz.html"
+  },
+  "contacts": {
+    "title": "Ihr Team"
+  },
+  "documents": {
+    "title": "Ihre Dokumente"
+  }
+}

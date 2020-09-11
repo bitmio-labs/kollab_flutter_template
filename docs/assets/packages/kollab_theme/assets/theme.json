@@ -1,0 +1,47 @@
+{
+    "id": "kollab",
+    "domain": "https://kollab.bitmio.com",
+    "primary_color": "006AB3",
+    "tab_icon_color": "006AB3",
+    "onboarding": {
+      "continue_label": "Continue",
+      "skip_label": "Skip",
+      "start_label": "Get Started",
+      "items": [
+        {
+          "title": "Build platform apps with Kollab",
+          "subtitle": "Define, build, launch, monitor and monetize your apps and APIs."
+        }, {
+          "title": "Launch APIs in hours",
+          "subtitle": "Your own open APIs up and running under your domain."
+        }, {
+          "title": "Standardized custom Apps",
+          "subtitle": "Custom apps without the developer lock-in."
+        }, {
+          "title": "You are in control",
+          "subtitle": "A dashboard to customize, monitor and bill for your apps."
+        }
+      ]
+    },
+    "welcome": {
+      "hero_title": "Your App Dashboard",
+      "login_button_title": "Login",
+      "signup_button_title": "Sign up",
+      "discover_button_title": "Discover"
+    },
+    "login": {
+      "login_button_title": "Login",
+      "forgot_login_button_title": "Forgot login?"
+    },
+    "signup": {
+      "signup_button_title": "Sign up",
+      "privacy_link_title": "Our privacy terms",
+      "privacy_link": "https://bitmio.com/privacy"
+    },
+    "contacts": {
+      "title": "Your Team"
+    },
+    "documents": {
+      "title": "Your Documents"
+    }
+  }
