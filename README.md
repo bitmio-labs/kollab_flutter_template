@@ -5,4 +5,4 @@
 
 Kollab app template.
 
-- [Live Demo](https://bitmio-labs.github.io/kollab_template)
+- [Live Demo](https://bitmio-labs.github.io/kollab_template/)
