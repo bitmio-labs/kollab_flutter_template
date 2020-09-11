@@ -1,7 +1,7 @@
 // Copyright 2018 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'helpers/locator.dart';
 import 'services/navigation_service.dart';
 import 'theme.dart';
@@ -9,9 +9,8 @@ import 'theme.dart';
 import 'onboarding.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:firebase_analytics/firebase_analytics.dart';
-// import 'package:firebase_analytics/observer.dart';
 import 'model/AppState.dart';
 import 'API.dart';
 import 'home.dart';
@@ -25,10 +24,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  FirebaseMessaging firebaseMessaging;
+
   final BitmioTheme theme = BitmioTheme.shared;
 
   final API api = API.shared;
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -36,6 +36,12 @@ class _HomeState extends State<Home> {
 
   var isLoading = false;
   bool _isConfigured = false;
+
+  _HomeState() {
+    if (!kIsWeb) {
+      firebaseMessaging = FirebaseMessaging();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +52,6 @@ class _HomeState extends State<Home> {
     final BitmioTheme theme = BitmioTheme.shared;
 
     final logoImage = Image.asset('images/logo.png');
-
-    // FirebaseAnalytics analytics = FirebaseAnalytics();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -66,9 +70,6 @@ class _HomeState extends State<Home> {
               ButtonTextTheme.primary, //  <-- this auto selects the right color
         ),
       ),
-      // navigatorObservers: [
-      //   FirebaseAnalyticsObserver(analytics: analytics),
-      // ],
       navigatorKey: locator<NavigationService>().navigationKey,
       initialRoute: api.isLoggedIn ? '/home' : '/onboarding',
       routes: {
@@ -156,15 +157,21 @@ class _HomeState extends State<Home> {
       return;
     }
 
-    if (api.isLoggedIn) {
-      _firebaseMessaging.requestNotificationPermissions();
-      if (!_isConfigured) {
-        configureFcm();
-      }
-      _isConfigured = true;
-    }
+    String token = '';
 
-    final token = await _firebaseMessaging.getToken();
+    if (api.isLoggedIn) {
+      if (firebaseMessaging != null) {
+        firebaseMessaging.requestNotificationPermissions();
+
+        if (!_isConfigured) {
+          configureFcm();
+        }
+
+        _isConfigured = true;
+
+        token = await firebaseMessaging.getToken();
+      }
+    }
 
     isLoading = true;
     api.fetchState(token).then((state) {
@@ -180,7 +187,7 @@ class _HomeState extends State<Home> {
   }
 
   void configureFcm() {
-    _firebaseMessaging.configure(
+    firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
       print('onMessage: $message');
       if (api.isLoggedIn) {

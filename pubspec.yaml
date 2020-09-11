@@ -21,11 +21,10 @@ dependencies:
   tinycolor: ^1.0.2
   json_annotation: ^3.0.1
   firebase_messaging: ^6.0.13
-  firebase_analytics: ^5.0.14
   get_it: ^4.0.2
   fluro: ^1.6.3
   kollab_theme: ^0.0.5
-  kollab_contacts: ^0.0.1
+  kollab_contacts: ^0.0.3
   kollab_auth: ^0.0.2
 
 dev_dependencies:
