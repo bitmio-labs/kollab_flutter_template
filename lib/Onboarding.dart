@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class BZOnboarding extends StatelessWidget {
-  final BitmioTheme theme = BitmioTheme.shared;
+  final BitmioTheme theme;
+
+  BZOnboarding({this.theme});
 
   @override
   Widget build(BuildContext context) {

@@ -6,12 +6,47 @@ part of 'theme.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AppDirectoryModel _$AppDirectoryModelFromJson(Map<String, dynamic> json) {
+  return AppDirectoryModel(
+    items: (json['items'] as List)
+        .map((e) => AppDirectoryItemModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$AppDirectoryModelToJson(AppDirectoryModel instance) =>
+    <String, dynamic>{
+      'items': instance.items,
+    };
+
+AppDirectoryItemModel _$AppDirectoryItemModelFromJson(
+    Map<String, dynamic> json) {
+  return AppDirectoryItemModel(
+    url: json['url'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String,
+    logo_url: json['logo_url'] as String,
+  );
+}
+
+Map<String, dynamic> _$AppDirectoryItemModelToJson(
+        AppDirectoryItemModel instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      'name': instance.name,
+      'description': instance.description,
+      'logo_url': instance.logo_url,
+    };
+
 BitmioTheme _$BitmioThemeFromJson(Map<String, dynamic> json) {
   return BitmioTheme(
     id: json['id'] as String,
     name: json['name'] as String,
     domain: json['domain'] as String,
     primary_color: json['primary_color'] as String,
+    has_app_switcher: json['has_app_switcher'] as bool,
+    logo_url: json['logo_url'] as String,
+    app_directory_url: json['app_directory_url'] as String,
     sidebar: (json['sidebar'] as List)
         .map((e) => NavigationSection.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -35,6 +70,9 @@ Map<String, dynamic> _$BitmioThemeToJson(BitmioTheme instance) =>
       'name': instance.name,
       'domain': instance.domain,
       'primary_color': instance.primary_color,
+      'logo_url': instance.logo_url,
+      'has_app_switcher': instance.has_app_switcher,
+      'app_directory_url': instance.app_directory_url,
       'sidebar': instance.sidebar,
       'tabs': instance.tabs,
       'onboarding': instance.onboarding,

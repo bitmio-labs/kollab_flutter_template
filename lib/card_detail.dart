@@ -71,7 +71,8 @@ class PersistedChecklistWidget extends StatefulWidget {
             .map((each) => ChecklistItemModel(
                 name: each.name,
                 id: each.id,
-                is_checked: API.shared.isToogled(each.id) ?? each.is_checked))
+                is_checked: CachedChecklistState.shared.isToogled(each.id) ??
+                    each.is_checked))
             .toList());
   }
 
@@ -94,7 +95,7 @@ class _PersistedChecklistWidgetState extends State<PersistedChecklistWidget> {
 
   toggleChecklistItem(BuildContext context, String id, bool value) {
     setState(() {
-      API.shared.toggle(id, value);
+      CachedChecklistState.shared.toggle(id, value);
     });
   }
 }

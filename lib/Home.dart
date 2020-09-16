@@ -1,5 +1,6 @@
 import 'package:kollab_template/tabs/helpers.dart';
 
+import 'API.dart';
 import 'Settings.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +18,25 @@ class Tab {
 }
 
 class LoggedIn extends StatefulWidget {
+  final BitmioTheme theme;
+  final API api;
   final AppState appState;
   final Function() reloadState;
   final int index;
 
-  LoggedIn({this.appState, this.reloadState, this.index});
+  LoggedIn({this.theme, this.api, this.appState, this.reloadState, this.index});
 
   @override
   State<StatefulWidget> createState() {
-    return _LoggedInState(currentIndex: index);
+    final tabs = theme.tabs
+        .map((e) => Tab(
+            name: e.title,
+            route: e.url,
+            icon: iconFromName(e.icon),
+            body: (state) => widgetFromType(e, state)))
+        .toList();
+
+    return _LoggedInState(currentIndex: index, tabs: tabs);
   }
 }
 
@@ -38,22 +49,18 @@ class AppModel {
 
 class _LoggedInState extends State<LoggedIn> {
   int currentIndex;
-  final theme = BitmioTheme.shared;
+  BitmioTheme get theme => widget.theme;
+  API get api => widget.api;
 
-  _LoggedInState({this.currentIndex});
+  _LoggedInState({this.currentIndex, this.tabs});
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final tabs = BitmioTheme.shared.tabs
-      .map((e) => Tab(
-          name: e.title,
-          route: e.url,
-          icon: iconFromName(e.icon),
-          body: (state) => widgetFromType(e, state)))
-      .toList();
+  final List<Tab> tabs;
 
   @override
   Widget build(BuildContext context) {
-    final drawerContent = DrawerContent(model: widget.appState.settings);
+    final drawerContent =
+        DrawerContent(model: widget.appState.settings, api: api);
     final apps = [
       AppModel(
           name: 'Bien-Zenker Service Center',
@@ -113,7 +120,7 @@ class _LoggedInState extends State<LoggedIn> {
     final screenWidth = MediaQuery.of(context).size.width;
     final appSwitcherWidth = 110.0;
     final maxMenuWidth = 250.0;
-    final showAppSwitcher = false;
+    final showAppSwitcher = theme.has_app_switcher;
     final maxWidth = maxMenuWidth + (showAppSwitcher ? appSwitcherWidth : 0);
     final drawerWidth = screenWidth < maxWidth ? screenWidth : maxWidth;
 

@@ -1,7 +1,10 @@
 // Copyright 2018 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import 'dart:async';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:kollab_template/kollab_bloc.dart';
 import 'helpers/locator.dart';
 import 'services/navigation_service.dart';
 import 'theme.dart';
@@ -16,28 +19,75 @@ import 'API.dart';
 import 'home.dart';
 import 'package:kollab_auth/kollab_auth.dart';
 
-class Home extends StatefulWidget {
+class KollabWrapper extends StatelessWidget {
+  final KollabBloc bloc;
+
+  KollabWrapper({this.bloc});
+
   @override
-  State<StatefulWidget> createState() {
-    return _HomeState();
+  Widget build(BuildContext context) {
+    return StreamBuilder<KollabAppModel>(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data;
+
+            if (data.isLoading) {
+              return LoadingApp();
+            }
+
+            return KollabApp(model: data);
+          }
+
+          return LoadingApp();
+        },
+        stream: bloc.modelStream.stream);
   }
 }
 
-class _HomeState extends State<Home> {
+class LoadingApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Loading...'),
+          SizedBox(height: 12),
+          Center(child: CircularProgressIndicator())
+        ],
+      ),
+    ));
+  }
+}
+
+class KollabApp extends StatefulWidget {
+  final KollabAppModel model;
+
+  KollabApp({this.model});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _KollabAppState();
+  }
+}
+
+class _KollabAppState extends State<KollabApp> {
   FirebaseMessaging firebaseMessaging;
 
-  final BitmioTheme theme = BitmioTheme.shared;
+  BitmioTheme get theme => widget.model.theme;
 
-  final API api = API.shared;
+  API get api => widget.model.api;
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  AppState appState = API.shared.cachedAppState ?? AppState(isLoggedIn: false);
+  AppState appState = AppState(isLoggedIn: false);
 
   var isLoading = false;
   bool _isConfigured = false;
 
-  _HomeState() {
+  _KollabAppState() {
     if (!kIsWeb) {
       firebaseMessaging = FirebaseMessaging();
     }
@@ -49,14 +99,14 @@ class _HomeState extends State<Home> {
       'images/welcome.jpg',
       fit: BoxFit.cover,
     );
-    final BitmioTheme theme = BitmioTheme.shared;
+    final BitmioTheme theme = widget.model.theme;
 
     final logoImage = Image.asset('images/logo.png');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: BitmioTheme.shared.primary_color_obj,
+        primaryColor: theme.primary_color_obj,
         fontFamily: "OpenSans",
         backgroundColor: Colors.red,
         textTheme: TextTheme(
@@ -65,7 +115,7 @@ class _HomeState extends State<Home> {
             subtitle1: StyleGuide().checklistStyle),
         buttonTheme: ButtonThemeData(
           padding: EdgeInsets.only(left: 60, right: 60, top: 15, bottom: 15),
-          buttonColor: BitmioTheme.shared.primary_color_obj, //  <-- dark color
+          buttonColor: theme.primary_color_obj, //  <-- dark color
           textTheme:
               ButtonTextTheme.primary, //  <-- this auto selects the right color
         ),
@@ -102,36 +152,60 @@ class _HomeState extends State<Home> {
             ),
             background: background,
             logo: logoImage),
-        '/explore': (context) =>
-            LoggedIn(appState: appState, reloadState: fetchState, index: 0),
-        '/onboarding': (context) => BZOnboarding()
+        '/explore': (context) => LoggedIn(
+            appState: appState,
+            api: api,
+            theme: theme,
+            reloadState: fetchState,
+            index: 0),
+        '/onboarding': (context) => BZOnboarding(theme: theme)
       },
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/home':
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState, reloadState: fetchState, index: 0),
+                    appState: appState,
+                    api: api,
+                    theme: theme,
+                    reloadState: fetchState,
+                    index: 0),
                 transitionDuration: Duration(seconds: 0));
           case '/cards':
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState, reloadState: fetchState, index: 1),
+                    appState: appState,
+                    api: api,
+                    theme: theme,
+                    reloadState: fetchState,
+                    index: 1),
                 transitionDuration: Duration(seconds: 0));
           case '/activities':
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState, reloadState: fetchState, index: 2),
+                    appState: appState,
+                    api: api,
+                    theme: theme,
+                    reloadState: fetchState,
+                    index: 2),
                 transitionDuration: Duration(seconds: 0));
           case '/files':
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState, reloadState: fetchState, index: 3),
+                    appState: appState,
+                    api: api,
+                    theme: theme,
+                    reloadState: fetchState,
+                    index: 3),
                 transitionDuration: Duration(seconds: 0));
           case '/contacts':
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState, reloadState: fetchState, index: 4),
+                    appState: appState,
+                    api: api,
+                    theme: theme,
+                    reloadState: fetchState,
+                    index: 4),
                 transitionDuration: Duration(seconds: 0));
           default:
             return PageRouteBuilder(

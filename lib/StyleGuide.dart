@@ -1,5 +1,3 @@
-import 'theme.dart';
-
 import 'helpers/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +13,9 @@ final veryLightGrayColor = HexColor('DBDBDB');
 class StyleGuide {
   static var shared = StyleGuide();
 
-  final BitmioTheme theme = BitmioTheme.shared;
-
+  // TODO: replace with real color from theme
   Color get _primaryColor {
-    return theme.primary_color_obj;
+    return Colors.blue;
   }
 
   final tabBackgroundColor = grayColor;

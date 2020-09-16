@@ -42,7 +42,7 @@ Widget widgetFromType(PageModel page, AppState state) {
     case 'activity_list':
       return ActivitiesTab(activities: state.activities);
     case 'document_list':
-      return DocumentsListTab(documents: state.documents);
+      return DocumentsListTab(title: page.subtitle, documents: state.documents);
     case 'contact_list':
       return ContactsScene(contacts: state.contacts, theme: theme);
     default:

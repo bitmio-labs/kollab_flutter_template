@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,28 +11,28 @@ const APP_STATE_KEY = 'bitmio_app_state_v1';
 const USER_STATE_KEY = 'bitmio_user_state_v1';
 
 class API {
-  static API shared = API();
+  final String id;
 
-  final BitmioTheme theme = BitmioTheme.shared;
+  API({this.id});
 
   String get APP_STATE_ROUTE {
-    return 'https://api.bitmio.com/v1/${theme.id}/bits/state';
+    return 'https://api.bitmio.com/v1/$id/bits/state';
   }
 
   String get DEMO_STATE_ROUTE {
-    return 'https://api.bitmio.com/v1/${theme.id}/bits/demo_state';
+    return 'https://api.bitmio.com/v1/$id/bits/demo_state';
   }
 
   String get SIGNUP_ROUTE {
-    return 'https://api.bitmio.com/v1/${theme.id}/signup';
+    return 'https://api.bitmio.com/v1/$id/signup';
   }
 
   String get LOGIN_ROUTE {
-    return 'https://api.bitmio.com/v1/${theme.id}/login';
+    return 'https://api.bitmio.com/v1/$id/login';
   }
 
   String get EVENTS_ROUTE {
-    return 'https://api.bitmio.com/v1/${theme.id}/events';
+    return 'https://api.bitmio.com/v1/$id/events';
   }
 
   SharedPreferences prefs;
@@ -68,40 +67,6 @@ class API {
     prefs.setString(APP_STATE_KEY, json);
   }
 
-  CachedState _cachedState;
-
-  CachedState get cachedState {
-    if (_cachedState != null) {
-      return _cachedState;
-    }
-
-    final encoded = prefs.getString(USER_STATE_KEY);
-
-    if (encoded == null) {
-      return CachedState(checklist_items: []);
-    }
-
-    final state = CachedState.fromJson(json.decode(encoded));
-
-    _cachedState = state;
-
-    if (state != null) {
-      return state;
-    }
-
-    return CachedState(checklist_items: []);
-  }
-
-  set cachedState(CachedState state) {
-    _cachedState = state;
-
-    final jsonData = state.toJson();
-
-    final encoded = json.encode(jsonData);
-
-    prefs.setString(USER_STATE_KEY, encoded);
-  }
-
   setup() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -128,6 +93,7 @@ class API {
       return state;
     } else {
       // If that response was not OK, throw an error.
+      print(response.body);
       throw Exception('Failed to load AppState');
     }
   }
@@ -226,6 +192,52 @@ class API {
     }
 
     return true;
+  }
+}
+
+class CachedChecklistState {
+  static final shared = CachedChecklistState();
+
+  SharedPreferences prefs;
+
+  CachedState _cachedState;
+
+  CachedState get cachedState {
+    if (_cachedState != null) {
+      return _cachedState;
+    }
+
+    final encoded = prefs.getString(USER_STATE_KEY);
+
+    if (encoded == null) {
+      return CachedState(checklist_items: []);
+    }
+
+    final state = CachedState.fromJson(json.decode(encoded));
+
+    _cachedState = state;
+
+    if (state != null) {
+      return state;
+    }
+
+    return CachedState(checklist_items: []);
+  }
+
+  set cachedState(CachedState state) {
+    _cachedState = state;
+
+    final jsonData = state.toJson();
+
+    final encoded = json.encode(jsonData);
+
+    prefs.setString(USER_STATE_KEY, encoded);
+  }
+
+  CachedChecklistState();
+
+  setup() async {
+    prefs = await SharedPreferences.getInstance();
   }
 
   toggle(String id, bool value) async {

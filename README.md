@@ -6,3 +6,10 @@
 Kollab app template.
 
 - [Live Demo](https://bitmio-labs.github.io/kollab_template/)
+
+## Development
+
+To regenerate the JSON serialization:
+
+`flutter pub run build_runner build` 
+

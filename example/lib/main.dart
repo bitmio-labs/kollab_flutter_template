@@ -1,3 +1,5 @@
 import 'package:kollab_template/kollab_template.dart';
 
-void main() => runKollab();
+final url = 'https://kollab-apps.glitch.me/bitmio';
+
+void main() => runKollab(url: url);

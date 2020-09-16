@@ -3,25 +3,51 @@
 import 'helpers/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'theme.g.dart';
 
 @JsonSerializable(nullable: false)
-class BitmioTheme {
-  static BitmioTheme shared;
+class AppDirectoryModel {
+  final List<AppDirectoryItemModel> items;
 
-  static setup() async {
-    final data = await rootBundle.loadString('assets/theme.json');
-    shared = BitmioTheme.fromJson(json.decode(data));
-  }
+  AppDirectoryModel({this.items});
+
+  factory AppDirectoryModel.fromJson(Map<String, dynamic> json) =>
+      _$AppDirectoryModelFromJson(json);
+  Map<String, dynamic> toJson() => _$AppDirectoryModelToJson(this);
+}
+
+@JsonSerializable(nullable: false)
+class AppDirectoryItemModel {
+  final String url;
+  final String name;
+  final String description;
+  final String logo_url;
+
+  AppDirectoryItemModel({this.url, this.name, this.description, this.logo_url});
+
+  factory AppDirectoryItemModel.fromJson(Map<String, dynamic> json) =>
+      _$AppDirectoryItemModelFromJson(json);
+  Map<String, dynamic> toJson() => _$AppDirectoryItemModelToJson(this);
+}
+
+@JsonSerializable(nullable: false)
+class BitmioTheme {
+  //static BitmioTheme shared;
+
+  // static setup() async {
+  //   final data = await rootBundle.loadString('assets/theme.json');
+  //   shared = BitmioTheme.fromJson(json.decode(data));
+  // }
 
   final String id;
   final String name;
   final String domain;
   final String primary_color;
+  final String logo_url;
+  final bool has_app_switcher;
+  final String app_directory_url;
   final List<NavigationSection> sidebar;
   final List<PageModel> tabs;
   final OnboardingTheme onboarding;
@@ -40,6 +66,9 @@ class BitmioTheme {
       this.name,
       this.domain,
       this.primary_color,
+      this.has_app_switcher,
+      this.logo_url,
+      this.app_directory_url,
       this.sidebar,
       this.tabs,
       this.onboarding,

@@ -153,7 +153,7 @@ class TimelineCard {
   final bool is_completed;
 
   bool isChecked(ChecklistItemModel model) {
-    return API.shared.isToogled(model.id) ?? model.is_checked;
+    return CachedChecklistState.shared.isToogled(model.id) ?? model.is_checked;
   }
 
   int get completedCount {

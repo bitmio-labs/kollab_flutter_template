@@ -1,5 +1,3 @@
-import '../theme.dart';
-
 import '../shared/tab_header.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +8,10 @@ import '../model/AppState.dart';
 import '../folder_detail.dart';
 
 class DocumentsListTab extends StatelessWidget {
-  final BitmioTheme theme = BitmioTheme.shared;
+  final String title;
   final Documents documents;
 
-  DocumentsListTab({this.documents});
+  DocumentsListTab({this.title, this.documents});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class DocumentsListTab extends StatelessWidget {
               children: [
                 Padding(
                   padding: StyleGuide().defaultInsets,
-                  child: Text(theme.documents.title.toUpperCase(),
+                  child: Text(title.toUpperCase(),
                       style: StyleGuide().sectionTitleStyle),
                 ),
               ],

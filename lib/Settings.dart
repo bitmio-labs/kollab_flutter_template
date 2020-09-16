@@ -18,10 +18,11 @@ String gravatarURL(String email) {
 }
 
 class DrawerContent extends StatelessWidget {
+  final API api;
   final SettingsModel model;
   final NavigationService _navigationService = locator<NavigationService>();
 
-  DrawerContent({this.model});
+  DrawerContent({this.model, this.api});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class DrawerContent extends StatelessWidget {
       //padding: EdgeInsets.zero,
       children: <Widget>[
         SettingsSectionHeader('Account'),
-        if (API.shared.isLoggedIn)
+        if (api.isLoggedIn)
           ListTile(
               title: Text(model.email), leading: Icon(Icons.account_circle)),
-        if (API.shared.isLoggedIn)
+        if (api.isLoggedIn)
           ListTile(
             title: Text('Passwort ändern'),
             leading: Icon(Icons.lock),
@@ -85,7 +86,7 @@ class DrawerContent extends StatelessWidget {
   }
 
   logout(BuildContext context) {
-    API.shared.accessToken = null;
+    api.accessToken = null;
     _navigationService.navigateTo('/onboarding');
   }
 }
