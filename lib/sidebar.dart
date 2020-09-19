@@ -13,8 +13,7 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drawerContent =
-        SidebarContent(model: appState.settings, api: bloc.model.api);
+    final drawerContent = SidebarContent(model: appState, bloc: bloc);
 
     final screenWidth = MediaQuery.of(context).size.width;
     final appSwitcherWidth = 110.0;

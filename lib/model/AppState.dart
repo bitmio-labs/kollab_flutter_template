@@ -7,6 +7,7 @@ import '../API.dart';
 class AppState {
   Map<String, dynamic> json;
   bool isLoggedIn = true;
+  AccountModel account;
   List<ActivityModel> activities;
   Documents documents;
   Contacts contacts;
@@ -16,6 +17,7 @@ class AppState {
 
   AppState(
       {this.json,
+      this.account,
       this.isLoggedIn,
       this.activities,
       this.documents,
@@ -31,6 +33,7 @@ class AppState {
     return AppState(
         json: json,
         isLoggedIn: isLoggedIn,
+        account: AccountModel.fromJson(json['account']),
         activities: List<ActivityModel>.from(
             activities.map((each) => ActivityModel.fromJson(each))),
         documents: Documents.fromJson(json['documents']),
@@ -40,10 +43,8 @@ class AppState {
         settings: SettingsModel.fromJson(json['settings']));
   }
 
-  List<dynamic> dataForKey(String name) {
-    final List<dynamic> data = json[name];
-
-    return data;
+  dynamic dataForKey(String name) {
+    return json[name];
   }
 }
 
@@ -313,26 +314,39 @@ class CachedChecklistItemState {
   }
 }
 
-class SettingsModel {
+class AccountModel {
   final String email;
   final String change_password_url;
+
+  AccountModel({
+    this.email,
+    this.change_password_url,
+  });
+
+  factory AccountModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
+
+    return AccountModel(
+      email: json['email'],
+      change_password_url: json['change_password_url'],
+    );
+  }
+}
+
+class SettingsModel {
   final String facebook_url;
   final String instagram_url;
   final String privacy_url;
   final String legal_url;
 
   SettingsModel(
-      {this.email,
-      this.change_password_url,
-      this.facebook_url,
+      {this.facebook_url,
       this.instagram_url,
       this.privacy_url,
       this.legal_url});
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) {
     return SettingsModel(
-        email: json['email'],
-        change_password_url: json['change_password_url'],
         facebook_url: json['facebook_url'],
         instagram_url: json['instagram_url'],
         privacy_url: json['privacy_url'],
