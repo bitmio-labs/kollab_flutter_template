@@ -15,7 +15,7 @@ class KollabAppModel {
 }
 
 class KollabBloc {
-  final String url;
+  String url;
   KollabAppModel model;
   final modelStream = StreamController<KollabAppModel>();
 
@@ -31,6 +31,11 @@ class KollabBloc {
     final loadedState = await _fetchApp();
 
     updateModel(loadedState);
+  }
+
+  launchApp(AppDirectoryItemModel app) {
+    url = app.url;
+    load();
   }
 
   Future<KollabAppModel> _fetchApp() async {

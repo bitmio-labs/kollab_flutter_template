@@ -35,7 +35,7 @@ class KollabWrapper extends StatelessWidget {
               return LoadingApp();
             }
 
-            return KollabApp(model: data);
+            return KollabApp(bloc: bloc);
           }
 
           return LoadingApp();
@@ -63,9 +63,9 @@ class LoadingApp extends StatelessWidget {
 }
 
 class KollabApp extends StatefulWidget {
-  final KollabAppModel model;
+  final KollabBloc bloc;
 
-  KollabApp({this.model});
+  KollabApp({this.bloc});
 
   @override
   State<StatefulWidget> createState() {
@@ -76,10 +76,9 @@ class KollabApp extends StatefulWidget {
 class _KollabAppState extends State<KollabApp> {
   FirebaseMessaging firebaseMessaging;
 
-  BitmioTheme get theme => widget.model.theme;
-  KollabAppModel get appModel => widget.model;
-
-  API get api => widget.model.api;
+  KollabBloc get bloc => widget.bloc;
+  BitmioTheme get theme => bloc.model.theme;
+  API get api => bloc.model.api;
 
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -100,7 +99,7 @@ class _KollabAppState extends State<KollabApp> {
       'images/welcome.jpg',
       fit: BoxFit.cover,
     );
-    final BitmioTheme theme = widget.model.theme;
+    final BitmioTheme theme = bloc.model.theme;
 
     final logoImage = Image.asset('images/logo.png');
 
@@ -154,10 +153,7 @@ class _KollabAppState extends State<KollabApp> {
             background: background,
             logo: logoImage),
         '/explore': (context) => LoggedIn(
-            appState: appState,
-            appModel: appModel,
-            reloadState: fetchState,
-            index: 0),
+            appState: appState, bloc: bloc, reloadState: fetchState, index: 0),
         '/onboarding': (context) => BZOnboarding(theme: theme)
       },
       onGenerateRoute: (settings) {
@@ -166,7 +162,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    appModel: appModel,
+                    bloc: bloc,
                     reloadState: fetchState,
                     index: 0),
                 transitionDuration: Duration(seconds: 0));
@@ -174,7 +170,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    appModel: appModel,
+                    bloc: bloc,
                     reloadState: fetchState,
                     index: 1),
                 transitionDuration: Duration(seconds: 0));
@@ -182,7 +178,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    appModel: appModel,
+                    bloc: bloc,
                     reloadState: fetchState,
                     index: 2),
                 transitionDuration: Duration(seconds: 0));
@@ -190,7 +186,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    appModel: appModel,
+                    bloc: bloc,
                     reloadState: fetchState,
                     index: 3),
                 transitionDuration: Duration(seconds: 0));
@@ -198,7 +194,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    appModel: appModel,
+                    bloc: bloc,
                     reloadState: fetchState,
                     index: 4),
                 transitionDuration: Duration(seconds: 0));

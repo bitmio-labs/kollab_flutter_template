@@ -19,16 +19,16 @@ class Tab {
 }
 
 class LoggedIn extends StatefulWidget {
-  final KollabAppModel appModel;
+  final KollabBloc bloc;
   final AppState appState;
   final Function() reloadState;
   final int index;
 
-  LoggedIn({this.appModel, this.appState, this.reloadState, this.index});
+  LoggedIn({this.bloc, this.appState, this.reloadState, this.index});
 
   @override
   State<StatefulWidget> createState() {
-    final tabs = appModel.theme.tabs
+    final tabs = bloc.model.theme.tabs
         .map((e) => Tab(
             name: e.title,
             route: e.url,
@@ -42,9 +42,8 @@ class LoggedIn extends StatefulWidget {
 
 class _LoggedInState extends State<LoggedIn> {
   int currentIndex;
-  BitmioTheme get theme => widget.appModel.theme;
-  API get api => widget.appModel.api;
-  List<AppDirectoryItemModel> get apps => widget.appModel.appDirectory.items;
+  BitmioTheme get theme => widget.bloc.model.theme;
+  API get api => widget.bloc.model.api;
 
   _LoggedInState({this.currentIndex, this.tabs});
   final NavigationService _navigationService = locator<NavigationService>();
@@ -54,7 +53,7 @@ class _LoggedInState extends State<LoggedIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Sidebar(appModel: widget.appModel, appState: widget.appState),
+      drawer: Sidebar(bloc: widget.bloc, appState: widget.appState),
       appBar: AppBar(
         title: Text(tabs[currentIndex].name),
       ),
@@ -70,7 +69,7 @@ class _LoggedInState extends State<LoggedIn> {
         items: tabs
             .map((each) => BottomNavigationBarItem(
                   icon: Icon(each.icon),
-                  title: new Text(each.name),
+                  label: each.name,
                 ))
             .toList(),
       ),
