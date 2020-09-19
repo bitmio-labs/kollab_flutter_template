@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 import '../shared/placeholder_widget.dart';
@@ -16,7 +17,13 @@ final iconDict = {
   'check_circle_outline': Icons.check_circle_outline,
   'notifications_none': Icons.notifications_none,
   'omi.insertDriveFile': OMIcons.insertDriveFile,
-  'person_outline': Icons.person_outline
+  'person_outline': Icons.person_outline,
+  'account_circle': Icons.account_circle,
+  'lock': Icons.lock,
+  'chevron_right': Icons.chevron_right,
+  'exit_to_app': Icons.exit_to_app,
+  'facebook': MdiIcons.facebook,
+  'instagram': MdiIcons.instagram
 };
 
 IconData iconFromName(String name) {

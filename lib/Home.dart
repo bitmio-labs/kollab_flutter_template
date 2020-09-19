@@ -1,6 +1,6 @@
-import 'package:kollab_template/kollab_bloc.dart';
-import 'package:kollab_template/sidebar.dart';
-import 'package:kollab_template/tabs/helpers.dart';
+import 'kollab_bloc.dart';
+import 'sidebar.dart';
+import 'pages/helpers.dart';
 
 import 'API.dart';
 import 'styleguide.dart';
