@@ -1,7 +1,8 @@
+import 'package:kollab_template/kollab_bloc.dart';
+import 'package:kollab_template/sidebar.dart';
 import 'package:kollab_template/tabs/helpers.dart';
 
 import 'API.dart';
-import 'Settings.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'model/AppState.dart';
@@ -18,17 +19,16 @@ class Tab {
 }
 
 class LoggedIn extends StatefulWidget {
-  final BitmioTheme theme;
-  final API api;
+  final KollabAppModel appModel;
   final AppState appState;
   final Function() reloadState;
   final int index;
 
-  LoggedIn({this.theme, this.api, this.appState, this.reloadState, this.index});
+  LoggedIn({this.appModel, this.appState, this.reloadState, this.index});
 
   @override
   State<StatefulWidget> createState() {
-    final tabs = theme.tabs
+    final tabs = appModel.theme.tabs
         .map((e) => Tab(
             name: e.title,
             route: e.url,
@@ -40,17 +40,11 @@ class LoggedIn extends StatefulWidget {
   }
 }
 
-class AppModel {
-  String logo;
-  String name;
-
-  AppModel({this.logo, this.name});
-}
-
 class _LoggedInState extends State<LoggedIn> {
   int currentIndex;
-  BitmioTheme get theme => widget.theme;
-  API get api => widget.api;
+  BitmioTheme get theme => widget.appModel.theme;
+  API get api => widget.appModel.api;
+  List<AppDirectoryItemModel> get apps => widget.appModel.appDirectory.items;
 
   _LoggedInState({this.currentIndex, this.tabs});
   final NavigationService _navigationService = locator<NavigationService>();
@@ -59,83 +53,8 @@ class _LoggedInState extends State<LoggedIn> {
 
   @override
   Widget build(BuildContext context) {
-    final drawerContent =
-        DrawerContent(model: widget.appState.settings, api: api);
-    final apps = [
-      AppModel(
-          name: 'Bien-Zenker Service Center',
-          logo: 'http://api.bitmio.com/icons/bienzenker_logo.png'),
-      AppModel(
-          name: 'Living Haus Baucockpit',
-          logo: 'http://api.bitmio.com/icons/livinghaus_logo.png'),
-      AppModel(
-          name: 'Bitmio Maker',
-          logo:
-              'https://pbs.twimg.com/profile_images/876542796924166144/g2HzOhOE_400x400.jpg')
-    ];
-
-    final appItems = apps
-        .map((e) => Column(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: Image.network(
-                      e.logo,
-                      width: 60,
-                      height: 60,
-                    )),
-                SizedBox(height: 6),
-                Container(
-                  alignment: Alignment.center,
-                  width: 90,
-                  child: Text(
-                    e.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 13, color: Colors.white70),
-                  ),
-                )
-              ],
-            ))
-        .toList();
-
-    final appItemWrap = Wrap(
-      spacing: 10,
-      direction: Axis.vertical,
-      children: appItems,
-    );
-
-    final appSwitcher = ListView(children: [
-      SizedBox(height: 10),
-      Center(child: appItemWrap),
-      SizedBox(
-        height: 20,
-      ),
-      Icon(
-        Icons.add,
-        color: Colors.white70,
-      )
-    ]);
-
-    final screenWidth = MediaQuery.of(context).size.width;
-    final appSwitcherWidth = 110.0;
-    final maxMenuWidth = 250.0;
-    final showAppSwitcher = theme.has_app_switcher;
-    final maxWidth = maxMenuWidth + (showAppSwitcher ? appSwitcherWidth : 0);
-    final drawerWidth = screenWidth < maxWidth ? screenWidth : maxWidth;
-
-    final drawerColumns = Row(children: [
-      if (showAppSwitcher)
-        Container(
-            width: appSwitcherWidth,
-            alignment: Alignment.center,
-            color: Colors.black87,
-            child: appSwitcher),
-      Expanded(child: drawerContent)
-    ]);
-
     return Scaffold(
-      drawer: SizedBox(width: drawerWidth, child: Drawer(child: drawerColumns)),
+      drawer: Sidebar(appModel: widget.appModel, appState: widget.appState),
       appBar: AppBar(
         title: Text(tabs[currentIndex].name),
       ),

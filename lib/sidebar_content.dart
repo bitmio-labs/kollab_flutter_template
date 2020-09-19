@@ -17,19 +17,19 @@ String gravatarURL(String email) {
   return 'https://www.gravatar.com/avatar/$emailHash?s=200&d=mp';
 }
 
-class DrawerContent extends StatelessWidget {
+class SidebarContent extends StatelessWidget {
   final API api;
   final SettingsModel model;
   final NavigationService _navigationService = locator<NavigationService>();
 
-  DrawerContent({this.model, this.api});
+  SidebarContent({this.model, this.api});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       //padding: EdgeInsets.zero,
       children: <Widget>[
-        SettingsSectionHeader('Account'),
+        SidebarSectionHeader('Account'),
         if (api.isLoggedIn)
           ListTile(
               title: Text(model.email), leading: Icon(Icons.account_circle)),
@@ -46,7 +46,7 @@ class DrawerContent extends StatelessWidget {
           trailing: Icon(Icons.chevron_right),
           onTap: () => logout(context),
         ),
-        SettingsSectionHeader('Folge uns'),
+        SidebarSectionHeader('Folge uns'),
         ListTile(
           title: Text('Facebook'),
           leading: Icon(MdiIcons.facebook),
@@ -59,7 +59,7 @@ class DrawerContent extends StatelessWidget {
           trailing: Icon(Icons.chevron_right),
           onTap: () => openUrl(model.instagram_url),
         ),
-        SettingsSectionHeader('Rechtliches'),
+        SidebarSectionHeader('Rechtliches'),
         ListTile(
           title: Text('Impressum'),
           trailing: Icon(Icons.chevron_right),
@@ -91,10 +91,10 @@ class DrawerContent extends StatelessWidget {
   }
 }
 
-class SettingsSectionHeader extends StatelessWidget {
+class SidebarSectionHeader extends StatelessWidget {
   final String title;
 
-  SettingsSectionHeader(this.title);
+  SidebarSectionHeader(this.title);
 
   @override
   Widget build(BuildContext context) {

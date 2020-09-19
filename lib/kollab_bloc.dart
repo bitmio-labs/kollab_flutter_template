@@ -25,32 +25,37 @@ class KollabBloc {
     print('Loading bloc theme state');
 
     final loadingState = KollabAppModel(isLoading: true);
+
     updateModel(loadingState);
 
-    final response = await http.get(url);
-    final jsonData = json.decode(response.body);
-    final theme = BitmioTheme.fromJson(jsonData);
-    final api = API(id: theme.id);
-    await api.setup();
-    await CachedChecklistState.shared.setup();
-    final loadedState =
-        KollabAppModel(theme: theme, api: api, isLoading: false);
+    final loadedState = await _fetchApp();
+
     updateModel(loadedState);
   }
 
-  loadAppDirectory() async {
+  Future<KollabAppModel> _fetchApp() async {
+    final response = await http.get(url);
+    final jsonData = json.decode(response.body);
+
+    final theme = BitmioTheme.fromJson(jsonData);
+    final api = API(id: theme.id);
+    await api.setup();
+
+    await CachedChecklistState.shared.setup();
+
+    final appDirectory = await _fetchAppDirectory(theme.app_directory_url);
+
+    return KollabAppModel(
+        theme: theme, api: api, isLoading: false, appDirectory: appDirectory);
+  }
+
+  Future<AppDirectoryModel> _fetchAppDirectory(String url) async {
     print('Loading bloc app directory state');
 
-    final response = await http.get(model.theme.app_directory_url);
+    final response = await http.get(url);
     final jsonData = json.decode(response.body);
-    final appDirectory = AppDirectoryModel.fromJson(jsonData);
 
-    final newModel = KollabAppModel(
-        theme: model.theme,
-        api: model.api,
-        isLoading: false,
-        appDirectory: appDirectory);
-    updateModel(newModel);
+    return AppDirectoryModel.fromJson(jsonData);
   }
 
   updateModel(KollabAppModel newModel) {

@@ -77,6 +77,7 @@ class _KollabAppState extends State<KollabApp> {
   FirebaseMessaging firebaseMessaging;
 
   BitmioTheme get theme => widget.model.theme;
+  KollabAppModel get appModel => widget.model;
 
   API get api => widget.model.api;
 
@@ -154,8 +155,7 @@ class _KollabAppState extends State<KollabApp> {
             logo: logoImage),
         '/explore': (context) => LoggedIn(
             appState: appState,
-            api: api,
-            theme: theme,
+            appModel: appModel,
             reloadState: fetchState,
             index: 0),
         '/onboarding': (context) => BZOnboarding(theme: theme)
@@ -166,8 +166,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    api: api,
-                    theme: theme,
+                    appModel: appModel,
                     reloadState: fetchState,
                     index: 0),
                 transitionDuration: Duration(seconds: 0));
@@ -175,8 +174,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    api: api,
-                    theme: theme,
+                    appModel: appModel,
                     reloadState: fetchState,
                     index: 1),
                 transitionDuration: Duration(seconds: 0));
@@ -184,8 +182,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    api: api,
-                    theme: theme,
+                    appModel: appModel,
                     reloadState: fetchState,
                     index: 2),
                 transitionDuration: Duration(seconds: 0));
@@ -193,8 +190,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    api: api,
-                    theme: theme,
+                    appModel: appModel,
                     reloadState: fetchState,
                     index: 3),
                 transitionDuration: Duration(seconds: 0));
@@ -202,8 +198,7 @@ class _KollabAppState extends State<KollabApp> {
             return PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LoggedIn(
                     appState: appState,
-                    api: api,
-                    theme: theme,
+                    appModel: appModel,
                     reloadState: fetchState,
                     index: 4),
                 transitionDuration: Duration(seconds: 0));
