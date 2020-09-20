@@ -106,7 +106,7 @@ class SidebarItem extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 12),
       title: Text(
         title,
-        style: TextStyle(fontSize: 12),
+        style: TextStyle(fontSize: 14),
       ),
       visualDensity: VisualDensity.compact,
       leading: model.icon != null ? Icon(iconFromName(model.icon)) : null,
