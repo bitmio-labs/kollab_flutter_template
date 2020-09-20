@@ -95,13 +95,16 @@ class _KollabAppState extends State<KollabApp> {
 
   @override
   Widget build(BuildContext context) {
-    final background = Image.asset(
-      'images/welcome.jpg',
-      fit: BoxFit.cover,
-    );
     final BitmioTheme theme = bloc.model.theme;
 
-    final logoImage = Image.asset('images/logo.png');
+    final background = theme.welcome.background_image_url != null
+        ? Image.network(theme.welcome.background_image_url)
+        : Image.asset(
+            'images/welcome.jpg',
+            fit: BoxFit.cover,
+          );
+
+    final logoImage = Image.network(theme.logo_url);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -130,8 +130,14 @@ class OnboardingTheme {
 class OnboardingItemTheme {
   String title;
   String subtitle;
+  String background_image_url;
+  String background_color;
 
-  OnboardingItemTheme({this.title, this.subtitle});
+  OnboardingItemTheme(
+      {this.title,
+      this.subtitle,
+      this.background_image_url,
+      this.background_color});
 
   factory OnboardingItemTheme.fromJson(Map<String, dynamic> json) =>
       _$OnboardingItemThemeFromJson(json);
@@ -144,12 +150,14 @@ class WelcomeTheme {
   String login_button_title;
   String signup_button_title;
   String discover_button_title;
+  String background_image_url;
 
   WelcomeTheme(
       {this.hero_title,
       this.login_button_title,
       this.signup_button_title,
-      this.discover_button_title});
+      this.discover_button_title,
+      this.background_image_url});
 
   factory WelcomeTheme.fromJson(Map<String, dynamic> json) =>
       _$WelcomeThemeFromJson(json);

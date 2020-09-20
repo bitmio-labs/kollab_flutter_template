@@ -17,7 +17,9 @@ class BZOnboarding extends StatelessWidget {
             OnboardingPageModel(
                 title: e.title,
                 description: e.subtitle,
-                backgroundImage: Image.asset('images/onboarding${i + 1}.jpg'))))
+                backgroundImage: e.background_image_url != null
+                    ? Image.network(e.background_image_url)
+                    : Image.asset('images/onboarding${i + 1}.jpg'))))
         .values
         .toList();
 

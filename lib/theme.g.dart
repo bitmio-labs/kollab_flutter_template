@@ -141,6 +141,8 @@ OnboardingItemTheme _$OnboardingItemThemeFromJson(Map<String, dynamic> json) {
   return OnboardingItemTheme(
     title: json['title'] as String,
     subtitle: json['subtitle'] as String,
+    background_image_url: json['background_image_url'] as String,
+    background_color: json['background_color'] as String,
   );
 }
 
@@ -149,6 +151,8 @@ Map<String, dynamic> _$OnboardingItemThemeToJson(
     <String, dynamic>{
       'title': instance.title,
       'subtitle': instance.subtitle,
+      'background_image_url': instance.background_image_url,
+      'background_color': instance.background_color,
     };
 
 WelcomeTheme _$WelcomeThemeFromJson(Map<String, dynamic> json) {
@@ -157,6 +161,7 @@ WelcomeTheme _$WelcomeThemeFromJson(Map<String, dynamic> json) {
     login_button_title: json['login_button_title'] as String,
     signup_button_title: json['signup_button_title'] as String,
     discover_button_title: json['discover_button_title'] as String,
+    background_image_url: json['background_image_url'] as String,
   );
 }
 
@@ -166,6 +171,7 @@ Map<String, dynamic> _$WelcomeThemeToJson(WelcomeTheme instance) =>
       'login_button_title': instance.login_button_title,
       'signup_button_title': instance.signup_button_title,
       'discover_button_title': instance.discover_button_title,
+      'background_image_url': instance.background_image_url,
     };
 
 LoginTheme _$LoginThemeFromJson(Map<String, dynamic> json) {
