@@ -1,7 +1,13 @@
-rm -rf docs
+mv docs docs_old
 
 cd example
 
 flutter build web
 
-mv build/web ../docs
+cd ..
+
+mv example/build/web ./docs
+
+mv docs_old/CNAME docs/
+
+rm -rf docs_old
