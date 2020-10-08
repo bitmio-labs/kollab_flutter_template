@@ -1,17 +1,22 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model/AppState.dart';
 import 'package:kollab_auth/kollab_auth.dart';
 
-const AUTH_TOKEN_KEY = 'bitmio_auth_token_v1';
-const APP_STATE_KEY = 'bitmio_app_state_v1';
-const USER_STATE_KEY = 'bitmio_user_state_v1';
-
 class API {
   final String id;
+
+  String get AUTH_TOKEN_KEY {
+    return 'bitmio_${id}_auth_token_v1';
+  }
+
+  String get APP_STATE_KEY {
+    return 'bitmio_${id}_app_state_v1';
+  }
 
   API({this.id});
 
@@ -24,7 +29,7 @@ class API {
   }
 
   String get SIGNUP_ROUTE {
-    return 'https://api.bitmio.com/v1/$id/signup';
+    return 'https://api.bitmio.com/v1/$id/signup ';
   }
 
   String get LOGIN_ROUTE {
@@ -34,6 +39,8 @@ class API {
   String get EVENTS_ROUTE {
     return 'https://api.bitmio.com/v1/$id/events';
   }
+
+  CachedChecklistState state;
 
   SharedPreferences prefs;
 
@@ -69,6 +76,8 @@ class API {
 
   setup() async {
     prefs = await SharedPreferences.getInstance();
+    state = CachedChecklistState(id: id);
+    await state.setup();
   }
 
   Future<AppState> fetchState(String firebaseToken) async {
@@ -196,7 +205,11 @@ class API {
 }
 
 class CachedChecklistState {
-  static final shared = CachedChecklistState();
+  final String id;
+
+  String get USER_STATE_KEY {
+    return 'bitmio_${id}_user_state_v1';
+  }
 
   SharedPreferences prefs;
 
@@ -234,7 +247,7 @@ class CachedChecklistState {
     prefs.setString(USER_STATE_KEY, encoded);
   }
 
-  CachedChecklistState();
+  CachedChecklistState({@required this.id});
 
   setup() async {
     prefs = await SharedPreferences.getInstance();

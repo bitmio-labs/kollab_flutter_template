@@ -22,7 +22,7 @@ import 'package:kollab_auth/kollab_auth.dart';
 class KollabWrapper extends StatelessWidget {
   final KollabBloc bloc;
 
-  KollabWrapper({this.bloc});
+  KollabWrapper({@required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class LoadingApp extends StatelessWidget {
 class KollabApp extends StatefulWidget {
   final KollabBloc bloc;
 
-  KollabApp({this.bloc});
+  KollabApp({@required this.bloc});
 
   @override
   State<StatefulWidget> createState() {

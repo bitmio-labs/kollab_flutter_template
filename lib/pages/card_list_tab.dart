@@ -1,3 +1,5 @@
+import 'package:kollab_template/API.dart';
+import 'package:kollab_template/kollab_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../card_detail.dart';
@@ -11,13 +13,14 @@ import '../model/AppState.dart';
 class CardListTab extends StatelessWidget {
   final String subtitle;
   final TimelinePhases phases;
+  final KollabBloc bloc;
 
-  CardListTab({this.subtitle, this.phases});
+  CardListTab({this.subtitle, this.phases, @required this.bloc});
 
   Widget build(BuildContext context) {
     return Container(
       color: StyleGuide().tabBackgroundColor,
-      child: Timeline(title: subtitle, phases: phases),
+      child: Timeline(title: subtitle, phases: phases, bloc: bloc),
     );
   }
 }
@@ -25,8 +28,9 @@ class CardListTab extends StatelessWidget {
 class Timeline extends StatelessWidget {
   final String title;
   final TimelinePhases phases;
+  final KollabBloc bloc;
 
-  Timeline({this.title, this.phases});
+  Timeline({this.title, this.phases, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class Timeline extends StatelessWidget {
     return ListView(
       children: [
         Row(children: [TabHeader(title)]),
-        PhasesList(phases: phases),
+        PhasesList(phases: phases, bloc: bloc),
         SizedBox(
           height: 20,
         )
@@ -48,15 +52,19 @@ class Timeline extends StatelessWidget {
 
 class PhasesList extends StatelessWidget {
   final TimelinePhases phases;
+  final KollabBloc bloc;
 
-  PhasesList({this.phases});
+  PhasesList({@required this.phases, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       runSpacing: 40,
       children: phases.items.map((each) {
-        return PhaseListItem(phase: each);
+        return PhaseListItem(
+          phase: each,
+          bloc: bloc,
+        );
       }).toList(),
     );
   }
@@ -64,8 +72,9 @@ class PhasesList extends StatelessWidget {
 
 class PhaseListItem extends StatelessWidget {
   final TimelinePhase phase;
+  final KollabBloc bloc;
 
-  PhaseListItem({this.phase});
+  PhaseListItem({@required this.phase, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +88,7 @@ class PhaseListItem extends StatelessWidget {
         Container(height: StyleGuide().sectionTitleBottomSpacing),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 0),
-            child: CardList(cards: phase.cards))
+            child: CardList(cards: phase.cards, bloc: bloc))
       ],
     );
   }
@@ -87,8 +96,9 @@ class PhaseListItem extends StatelessWidget {
 
 class CardList extends StatelessWidget {
   final List<TimelineCard> cards;
+  final KollabBloc bloc;
 
-  CardList({this.cards});
+  CardList({@required this.cards, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +109,7 @@ class CardList extends StatelessWidget {
           type: MaterialType.card,
           child: InkWell(
             onTap: () => openCard(context, each),
-            child: CardListItem(card: each),
+            child: CardListItem(card: each, bloc: bloc),
           ),
         );
       }).toList(),
@@ -108,14 +118,24 @@ class CardList extends StatelessWidget {
 
   openCard(BuildContext context, TimelineCard card) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BZCardDetail(card)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => BZCardDetail(card: card, bloc: bloc)));
   }
 }
 
 class CardListItem extends StatelessWidget {
   final TimelineCard card;
+  final KollabBloc bloc;
+  CachedChecklistState get state {
+    return bloc.model.api.state;
+  }
 
-  CardListItem({this.card});
+  int get completedCount {
+    return card.completedCount(state);
+  }
+
+  CardListItem({@required this.card, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +164,7 @@ class CardListItem extends StatelessWidget {
                             Icon(MdiIcons.checkboxMarkedOutline,
                                 color: StyleGuide().cardPropertyIconColor),
                             Text(
-                              '${card.completedCount}/${card.totalCount}',
+                              '${this.completedCount}/${card.totalCount}',
                               style: StyleGuide().cardPropertyStyle,
                             )
                           ],

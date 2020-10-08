@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
+import 'package:kollab_template/kollab_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
@@ -36,18 +37,18 @@ IconData iconFromName(String name) {
   return icon;
 }
 
-Widget widgetFromType(PageModel page, AppState state) {
+Widget widgetFromType(PageModel page, AppState state, KollabBloc bloc) {
   switch (page.widget) {
     case 'dashboard':
-      return DashboardTab(model: state.dashboard);
+      return DashboardTab(model: state.dashboard, bloc: bloc);
     case 'card_list':
       final json = state.dataForKey(page.data);
       final data = json != null
           ? TimelinePhases.fromJson(json)
           : TimelinePhases(items: []);
-      return CardListTab(subtitle: page.subtitle, phases: data);
+      return CardListTab(subtitle: page.subtitle, phases: data, bloc: bloc);
     case 'activity_list':
-      return ActivitiesTab(activities: state.activities);
+      return ActivitiesTab(activities: state.activities, bloc: bloc);
     case 'document_list':
       return DocumentsListTab(title: page.subtitle, documents: state.documents);
     case 'contact_list':

@@ -1,8 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:kollab_template/API.dart';
+
 import '../shared/checklist.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
-import '../API.dart';
 
 class AppState {
   Map<String, dynamic> json;
@@ -153,19 +154,19 @@ class TimelineCard {
   final List<Document> documents;
   final bool is_completed;
 
-  bool isChecked(ChecklistItemModel model) {
-    return CachedChecklistState.shared.isToogled(model.id) ?? model.is_checked;
+  bool isChecked(ChecklistItemModel model, CachedChecklistState state) {
+    return state.isToogled(model.id) ?? model.is_checked;
   }
 
-  int get completedCount {
+  int completedCount(CachedChecklistState state) {
     if (checklists == null) return 0;
 
     return checklists.fold(
         0,
         (value, list) =>
             value +
-            list.items
-                .fold(0, (value, item) => value + (isChecked(item) ? 1 : 0)));
+            list.items.fold(
+                0, (value, item) => value + (isChecked(item, state) ? 1 : 0)));
   }
 
   int get totalCount {

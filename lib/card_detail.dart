@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:kollab_template/kollab_bloc.dart';
+
 import 'folder_detail.dart';
 import 'styleguide.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +17,9 @@ import 'shared/checklist.dart';
 
 class BZCardDetail extends StatelessWidget {
   final TimelineCard card;
+  final KollabBloc bloc;
 
-  BZCardDetail(this.card);
+  BZCardDetail({@required this.card, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class BZCardDetail extends StatelessWidget {
     if (card.checklists.length > 0)
       widgets.add(Column(
         children: card.checklists.map((each) {
-          return PersistedChecklistWidget(model: each);
+          return PersistedChecklistWidget(model: each, bloc: bloc);
         }).toList(),
       ));
 
@@ -63,6 +66,11 @@ class BZCardDetail extends StatelessWidget {
 
 class PersistedChecklistWidget extends StatefulWidget {
   final ChecklistModel model;
+  final KollabBloc bloc;
+
+  CachedChecklistState get state {
+    return bloc.model.api.state;
+  }
 
   ChecklistModel get mappedModel {
     return ChecklistModel(
@@ -71,12 +79,11 @@ class PersistedChecklistWidget extends StatefulWidget {
             .map((each) => ChecklistItemModel(
                 name: each.name,
                 id: each.id,
-                is_checked: CachedChecklistState.shared.isToogled(each.id) ??
-                    each.is_checked))
+                is_checked: state.isToogled(each.id) ?? each.is_checked))
             .toList());
   }
 
-  PersistedChecklistWidget({this.model});
+  PersistedChecklistWidget({@required this.model, @required this.bloc});
 
   @override
   State<StatefulWidget> createState() {
@@ -95,7 +102,7 @@ class _PersistedChecklistWidgetState extends State<PersistedChecklistWidget> {
 
   toggleChecklistItem(BuildContext context, String id, bool value) {
     setState(() {
-      CachedChecklistState.shared.toggle(id, value);
+      widget.state.toggle(id, value);
     });
   }
 }

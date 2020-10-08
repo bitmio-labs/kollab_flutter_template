@@ -18,7 +18,7 @@ class SidebarContent extends StatelessWidget {
   API get api => bloc.model.api;
   final AppState model;
 
-  SidebarContent({this.model, this.bloc});
+  SidebarContent({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,8 @@ class SidebarItem extends StatelessWidget {
     }
   }
 
-  SidebarItem({this.bloc, this.model, this.appState});
+  SidebarItem(
+      {@required this.bloc, @required this.model, @required this.appState});
 
   @override
   Widget build(BuildContext context) {

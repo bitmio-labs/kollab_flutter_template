@@ -1,3 +1,5 @@
+import 'package:kollab_template/kollab_bloc.dart';
+
 import '../card_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,9 @@ import '../shared/tab_header.dart';
 
 class ActivitiesTab extends StatelessWidget {
   final List<ActivityModel> activities;
+  final KollabBloc bloc;
 
-  ActivitiesTab({this.activities});
+  ActivitiesTab({@required this.activities, @required this.bloc});
 
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +28,7 @@ class ActivitiesTab extends StatelessWidget {
               )
             ]),
             Container(height: StyleGuide().sectionTitleBottomSpacing),
-            ActivitiesList(activities),
+            ActivitiesList(activities: activities, bloc: bloc),
             Container(height: 20)
           ],
         ));
@@ -34,8 +37,9 @@ class ActivitiesTab extends StatelessWidget {
 
 class ActivitiesList extends StatelessWidget {
   final List<ActivityModel> activities;
+  final KollabBloc bloc;
 
-  ActivitiesList(this.activities);
+  ActivitiesList({@required this.activities, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,9 @@ class ActivitiesList extends StatelessWidget {
 
   showCard(BuildContext context, TimelineCard card) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BZCardDetail(card)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => BZCardDetail(card: card, bloc: bloc)));
   }
 }
 

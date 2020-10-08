@@ -7,7 +7,7 @@ class AppSwitcher extends StatelessWidget {
   List<AppDirectoryItemModel> get apps => bloc.model.appDirectory.items;
   final double width;
 
-  AppSwitcher({this.bloc, this.width});
+  AppSwitcher({@required this.bloc, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class AppSwitcherItem extends StatelessWidget {
   final AppDirectoryItemModel model;
   final appTitleFont = TextStyle(fontSize: 12, color: Colors.white70);
 
-  AppSwitcherItem({this.model, this.bloc});
+  AppSwitcherItem({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {

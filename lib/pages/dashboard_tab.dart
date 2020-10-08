@@ -1,4 +1,5 @@
 import 'package:kollab_contacts/kollab_contacts.dart';
+import 'package:kollab_template/kollab_bloc.dart';
 
 import '../globals.dart';
 import '../model/AppState.dart';
@@ -14,22 +15,24 @@ import 'card_list_tab.dart';
 
 class DashboardTab extends StatelessWidget {
   final DashboardModel model;
+  final KollabBloc bloc;
 
-  DashboardTab({this.model});
+  DashboardTab({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: HexColor('F1F1F1')),
-      child: Dashboard(model: model),
+      child: Dashboard(model: model, bloc: bloc),
     );
   }
 }
 
 class Dashboard extends StatelessWidget {
   final DashboardModel model;
+  final KollabBloc bloc;
 
-  Dashboard({this.model});
+  Dashboard({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +49,16 @@ class Dashboard extends StatelessWidget {
             DashboardSection(
                 title: 'Projektfortschritt',
                 icon: Icons.check_circle_outline,
-                innerWidget: ProgressSection(model: model)),
+                innerWidget: ProgressSection(
+                  model: model,
+                  bloc: bloc,
+                )),
             if (model.activities.length > 0)
               DashboardSection(
                   title: 'Aktivitäten',
                   icon: Icons.notifications_none,
-                  innerWidget: ActivitiesSection(model.activities)),
+                  innerWidget:
+                      ActivitiesSection(model: model.activities, bloc: bloc)),
             DashboardSection(
                 title: 'Letzte Dokumente',
                 icon: OMIcons.insertDriveFile,
@@ -101,8 +108,9 @@ class DashboardSection extends StatelessWidget {
 
 class ProgressSection extends StatelessWidget {
   final DashboardModel model;
+  final KollabBloc bloc;
 
-  ProgressSection({this.model});
+  ProgressSection({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +141,10 @@ class ProgressSection extends StatelessWidget {
         SizedBox(height: 3),
         Container(
             decoration: BoxDecoration(color: HexColor('F1F1F1')),
-            child: CardList(cards: model.cards))
+            child: CardList(
+              cards: model.cards,
+              bloc: bloc,
+            ))
       ],
     );
   }
@@ -145,12 +156,13 @@ class ProgressSection extends StatelessWidget {
 
 class ActivitiesSection extends StatelessWidget {
   final List<ActivityModel> model;
+  final KollabBloc bloc;
 
-  ActivitiesSection(this.model);
+  ActivitiesSection({@required this.model, @required this.bloc});
 
   @override
   Widget build(BuildContext context) {
-    return ActivitiesList(model);
+    return ActivitiesList(activities: model, bloc: bloc);
   }
 }
 

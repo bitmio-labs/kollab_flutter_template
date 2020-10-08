@@ -9,7 +9,7 @@ class Sidebar extends StatelessWidget {
   final KollabBloc bloc;
   final AppState appState;
 
-  Sidebar({this.bloc, this.appState});
+  Sidebar({@required this.bloc, @required this.appState});
 
   @override
   Widget build(BuildContext context) {

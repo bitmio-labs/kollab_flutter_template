@@ -46,7 +46,8 @@ class KollabBloc {
     final api = API(id: theme.id);
     await api.setup();
 
-    await CachedChecklistState.shared.setup();
+    await api.state.setup();
+    print('Setting up state');
 
     final appDirectory = await _fetchAppDirectory(theme.app_directory_url);
 

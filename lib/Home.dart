@@ -24,7 +24,11 @@ class LoggedIn extends StatefulWidget {
   final Function() reloadState;
   final int index;
 
-  LoggedIn({this.bloc, this.appState, this.reloadState, this.index});
+  LoggedIn(
+      {@required this.bloc,
+      @required this.appState,
+      this.reloadState,
+      this.index});
 
   @override
   State<StatefulWidget> createState() {
@@ -33,7 +37,7 @@ class LoggedIn extends StatefulWidget {
             name: e.title,
             route: e.url,
             icon: iconFromName(e.icon),
-            body: (state) => widgetFromType(e, state)))
+            body: (state) => widgetFromType(e, state, bloc)))
         .toList();
 
     return _LoggedInState(currentIndex: index, tabs: tabs);
