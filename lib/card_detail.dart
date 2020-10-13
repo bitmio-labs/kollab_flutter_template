@@ -3,13 +3,15 @@ import 'dart:ui';
 import 'package:kollab_template/kollab_bloc.dart';
 
 import 'folder_detail.dart';
+import 'model/CardsModel.dart';
+import 'model/ChecklistsModel.dart';
+import 'model/DocumentsModel.dart';
 import 'styleguide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'API.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
-import 'model/AppState.dart';
 import 'shared/section_title.dart' as MySectionTitle;
 import 'globals.dart';
 import 'shared/card_detail.dart';

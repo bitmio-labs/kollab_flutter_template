@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../styleguide.dart';
-import '../model/AppState.dart';
+import '../model/DocumentsModel.dart';
 import '../folder_detail.dart';
 
 class DocumentsListTab extends StatelessWidget {
   final String title;
-  final Documents documents;
+  final DocumentListModel documents;
 
   DocumentsListTab({this.title, this.documents});
 
@@ -37,7 +37,7 @@ class DocumentsListTab extends StatelessWidget {
 }
 
 class FolderList extends StatelessWidget {
-  final Documents documents;
+  final DocumentListModel documents;
 
   FolderList(this.documents);
 

@@ -5,12 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../styleguide.dart';
-import '../model/AppState.dart';
+import '../model/ActivitiesModel.dart';
+import '../model/CardsModel.dart';
+
 import '../shared/section_title.dart';
 import '../shared/tab_header.dart';
 
 class ActivitiesTab extends StatelessWidget {
-  final List<ActivityModel> activities;
+  final ActivityListModel activities;
   final KollabBloc bloc;
 
   ActivitiesTab({@required this.activities, @required this.bloc});
@@ -28,7 +30,7 @@ class ActivitiesTab extends StatelessWidget {
               )
             ]),
             Container(height: StyleGuide().sectionTitleBottomSpacing),
-            ActivitiesList(activities: activities, bloc: bloc),
+            ActivitiesList(activities: activities.items, bloc: bloc),
             Container(height: 20)
           ],
         ));

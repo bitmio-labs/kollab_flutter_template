@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/tab_header.dart';
 import '../model/AppState.dart';
+import '../model/CardsModel.dart';
 
 class CardListTab extends StatelessWidget {
   final String subtitle;

@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'model/DocumentsModel.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'model/AppState.dart';
 import 'helpers/hexcolor.dart';
 
 class FolderDetailScene extends StatelessWidget {

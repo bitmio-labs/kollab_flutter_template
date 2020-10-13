@@ -6,6 +6,8 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 
 import '../shared/placeholder_widget.dart';
 import '../model/AppState.dart';
+import '../model/ActivitiesModel.dart';
+
 import '../theme.dart';
 import 'activity_list_tab.dart';
 import 'card_list_tab.dart';
@@ -49,7 +51,11 @@ Widget widgetFromType(PageModel page, AppState state, KollabBloc bloc) {
           : TimelinePhases(items: []);
       return CardListTab(subtitle: page.subtitle, phases: data, bloc: bloc);
     case 'activity_list':
-      return ActivitiesTab(activities: state.activities, bloc: bloc);
+      final json = state.dataForKey(page.data);
+      final data = json != null
+          ? ActivityListModel.fromJson(json)
+          : ActivityListModel(items: []);
+      return ActivitiesTab(activities: data, bloc: bloc);
     case 'document_list':
       return DocumentsListTab(title: page.subtitle, documents: state.documents);
     case 'contact_list':

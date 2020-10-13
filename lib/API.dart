@@ -103,6 +103,8 @@ class API {
         return state;
       } catch (err) {
         print(err);
+
+        return null;
       }
     } else {
       // If that response was not OK, throw an error.
