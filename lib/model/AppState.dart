@@ -4,9 +4,8 @@ class AppState {
   Map<String, dynamic> json;
   bool isLoggedIn = true;
   AccountModel account;
-  SettingsModel settings;
 
-  AppState({this.json, this.account, this.isLoggedIn, this.settings});
+  AppState({this.json, this.account, this.isLoggedIn});
 
   factory AppState.fromJson(Map<String, dynamic> json) {
     bool isLoggedIn = json['is_logged_in'];
@@ -14,8 +13,7 @@ class AppState {
     return AppState(
         json: json,
         isLoggedIn: isLoggedIn,
-        account: AccountModel.fromJson(json['account']),
-        settings: SettingsModel.fromJson(json['settings']));
+        account: AccountModel.fromJson(json['account']));
   }
 
   dynamic dataForKey(String name) {
@@ -110,26 +108,5 @@ class AccountModel {
       email: json['email'],
       change_password_url: json['change_password_url'],
     );
-  }
-}
-
-class SettingsModel {
-  final String facebook_url;
-  final String instagram_url;
-  final String privacy_url;
-  final String legal_url;
-
-  SettingsModel(
-      {this.facebook_url,
-      this.instagram_url,
-      this.privacy_url,
-      this.legal_url});
-
-  factory SettingsModel.fromJson(Map<String, dynamic> json) {
-    return SettingsModel(
-        facebook_url: json['facebook_url'],
-        instagram_url: json['instagram_url'],
-        privacy_url: json['privacy_url'],
-        legal_url: json['legal_url']);
   }
 }

@@ -30,7 +30,11 @@ final iconDict = {
   'chevron_right': Icons.chevron_right,
   'exit_to_app': Icons.exit_to_app,
   'facebook': MdiIcons.facebook,
-  'instagram': MdiIcons.instagram
+  'instagram': MdiIcons.instagram,
+  'add': Icons.add,
+  'add_circle': Icons.add_circle,
+  'apps': Icons.apps,
+  'view_compact': Icons.view_compact
 };
 
 IconData iconFromName(String name) {
