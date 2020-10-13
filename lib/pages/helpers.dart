@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
 import 'package:kollab_template/kollab_bloc.dart';
+import 'package:kollab_template/model/CardsModel.dart';
+import 'package:kollab_template/model/DashboardModel.dart';
+import 'package:kollab_template/model/DocumentsModel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
@@ -43,7 +46,9 @@ IconData iconFromName(String name) {
 Widget widgetFromType(PageModel page, AppState state, KollabBloc bloc) {
   switch (page.widget) {
     case 'dashboard':
-      return DashboardTab(model: state.dashboard, bloc: bloc);
+      final json = state.dataForKey(page.data);
+      final data = json != null ? DashboardModel.fromJson(json) : null;
+      return DashboardTab(model: data, bloc: bloc);
     case 'card_list':
       final json = state.dataForKey(page.data);
       final data = json != null
@@ -57,9 +62,15 @@ Widget widgetFromType(PageModel page, AppState state, KollabBloc bloc) {
           : ActivityListModel(items: []);
       return ActivitiesTab(activities: data, bloc: bloc);
     case 'document_list':
-      return DocumentsListTab(title: page.subtitle, documents: state.documents);
+      final json = state.dataForKey(page.data);
+      final data = json != null
+          ? DocumentListModel.fromJson(json)
+          : DocumentListModel(items: []);
+      return DocumentsListTab(title: page.subtitle, documents: data);
     case 'contact_list':
-      return ContactsScene(contacts: state.contacts, theme: theme);
+      final json = state.dataForKey(page.data);
+      final data = json != null ? Contacts.fromJson(json) : Contacts(items: []);
+      return ContactsScene(contacts: data, theme: theme);
     default:
       return PlaceholderWidget('Unknown widget of type ${page.widget}');
   }

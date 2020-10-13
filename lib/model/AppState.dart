@@ -1,30 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:kollab_contacts/kollab_contacts.dart';
-
-import 'ActivitiesModel.dart';
-import 'CardsModel.dart';
-import 'DocumentsModel.dart';
-
 class AppState {
   Map<String, dynamic> json;
   bool isLoggedIn = true;
   AccountModel account;
-  DocumentListModel documents;
-  Contacts contacts;
-  TimelinePhases phases;
-  DashboardModel dashboard;
   SettingsModel settings;
 
-  AppState(
-      {this.json,
-      this.account,
-      this.isLoggedIn,
-      this.documents,
-      this.contacts,
-      this.phases,
-      this.dashboard,
-      this.settings});
+  AppState({this.json, this.account, this.isLoggedIn, this.settings});
 
   factory AppState.fromJson(Map<String, dynamic> json) {
     bool isLoggedIn = json['is_logged_in'];
@@ -33,80 +15,11 @@ class AppState {
         json: json,
         isLoggedIn: isLoggedIn,
         account: AccountModel.fromJson(json['account']),
-        documents: DocumentListModel.fromJson(json['documents']),
-        contacts: Contacts.fromJson(json['contacts']),
-        phases: TimelinePhases.fromJson(json['phases']),
-        dashboard: DashboardModel.fromJson(json['dashboard']),
         settings: SettingsModel.fromJson(json['settings']));
   }
 
   dynamic dataForKey(String name) {
     return json[name];
-  }
-}
-
-class DashboardModel {
-  final String progress_message;
-  final int progress;
-  final List<Document> documents;
-  final List<Contact> contacts;
-  final List<TimelineCard> cards;
-  final List<ActivityModel> activities;
-
-  DashboardModel(
-      {this.progress_message,
-      this.progress,
-      this.documents,
-      this.contacts,
-      this.cards,
-      this.activities});
-
-  factory DashboardModel.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> documents = json['documents'];
-    final List<dynamic> contacts = json['contacts'];
-    final List<dynamic> cards = json['cards'];
-    final List<dynamic> activities = json['activities'];
-
-    return DashboardModel(
-        progress_message: json['progress_message'],
-        progress: json['progress'],
-        documents: List<Document>.from(
-            documents.map((each) => Document.fromJson(each))),
-        contacts:
-            List<Contact>.from(contacts.map((each) => Contact.fromJson(each))),
-        cards: List<TimelineCard>.from(
-            cards.map((each) => TimelineCard.fromJson(each))),
-        activities: List<ActivityModel>.from(
-            activities.map((each) => ActivityModel.fromJson(each))));
-  }
-}
-
-class TimelinePhases {
-  final List<TimelinePhase> items;
-
-  TimelinePhases({this.items});
-
-  factory TimelinePhases.fromJson(List<dynamic> json) {
-    return TimelinePhases(items: List<TimelinePhase>.from(json.map((each) {
-      return TimelinePhase.fromJson(each);
-    })));
-  }
-}
-
-class TimelinePhase {
-  final String name;
-  final List<TimelineCard> cards;
-
-  TimelinePhase({this.name, this.cards});
-
-  factory TimelinePhase.fromJson(Map<String, dynamic> json) {
-    List<dynamic> cards = json['cards'];
-
-    return TimelinePhase(
-        name: json['name'],
-        cards: List<TimelineCard>.from(cards.map((each) {
-          return TimelineCard.fromJson(each);
-        })));
   }
 }
 

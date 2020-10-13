@@ -6,6 +6,35 @@ import '../API.dart';
 import 'ChecklistsModel.dart';
 import 'DocumentsModel.dart';
 
+class TimelinePhases {
+  final List<TimelinePhase> items;
+
+  TimelinePhases({this.items});
+
+  factory TimelinePhases.fromJson(List<dynamic> json) {
+    return TimelinePhases(items: List<TimelinePhase>.from(json.map((each) {
+      return TimelinePhase.fromJson(each);
+    })));
+  }
+}
+
+class TimelinePhase {
+  final String name;
+  final List<TimelineCard> cards;
+
+  TimelinePhase({this.name, this.cards});
+
+  factory TimelinePhase.fromJson(Map<String, dynamic> json) {
+    List<dynamic> cards = json['cards'];
+
+    return TimelinePhase(
+        name: json['name'],
+        cards: List<TimelineCard>.from(cards.map((each) {
+          return TimelineCard.fromJson(each);
+        })));
+  }
+}
+
 class TimelineCard {
   final String name;
   final String description;
