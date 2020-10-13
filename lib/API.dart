@@ -9,6 +9,7 @@ import 'package:kollab_auth/kollab_auth.dart';
 
 class API {
   final String id;
+  final String stateUrl;
 
   String get AUTH_TOKEN_KEY {
     return 'bitmio_${id}_auth_token_v1';
@@ -18,10 +19,10 @@ class API {
     return 'bitmio_${id}_app_state_v1';
   }
 
-  API({this.id});
+  API({this.id, this.stateUrl});
 
   String get APP_STATE_ROUTE {
-    return 'https://api.bitmio.com/v1/$id/bits/state';
+    return stateUrl ?? 'https://api.bitmio.com/v1/$id/bits/state';
   }
 
   String get DEMO_STATE_ROUTE {
@@ -29,7 +30,7 @@ class API {
   }
 
   String get SIGNUP_ROUTE {
-    return 'https://api.bitmio.com/v1/$id/signup ';
+    return 'https://api.bitmio.com/v1/$id/signup';
   }
 
   String get LOGIN_ROUTE {
@@ -95,11 +96,14 @@ class API {
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
-      AppState state = AppState.fromJson(json.decode(response.body));
+      try {
+        AppState state = AppState.fromJson(json.decode(response.body));
+        cachedAppStateJSON = response.body;
 
-      cachedAppStateJSON = response.body;
-
-      return state;
+        return state;
+      } catch (err) {
+        print(err);
+      }
     } else {
       // If that response was not OK, throw an error.
       print(response.body);

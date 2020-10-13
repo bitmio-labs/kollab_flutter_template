@@ -42,6 +42,7 @@ class BitmioTheme {
   // }
 
   final String id;
+  final String state_url;
   final String name;
   final String domain;
   final String primary_color;
@@ -63,6 +64,7 @@ class BitmioTheme {
 
   BitmioTheme(
       {this.id,
+      this.state_url,
       this.name,
       this.domain,
       this.primary_color,

@@ -39,11 +39,23 @@ class KollabBloc {
   }
 
   Future<KollabAppModel> _fetchApp() async {
+    print('Fetching theme $url');
+
     final response = await http.get(url);
     final jsonData = json.decode(response.body);
 
-    final theme = BitmioTheme.fromJson(jsonData);
-    final api = API(id: theme.id);
+    var theme;
+    try {
+      theme = BitmioTheme.fromJson(jsonData);
+    } catch (err) {
+      print(err);
+      print(response.body);
+    }
+
+    print('Init API ${theme.id}, ${theme.state_url}');
+    final api = API(id: theme.id, stateUrl: theme.state_url);
+
+    print('Setting up API');
     await api.setup();
 
     await api.state.setup();

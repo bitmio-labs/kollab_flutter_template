@@ -20,6 +20,7 @@ final iconDict = {
   'omi.insertDriveFile': OMIcons.insertDriveFile,
   'person_outline': Icons.person_outline,
   'account_circle': Icons.account_circle,
+  'settings': Icons.settings,
   'lock': Icons.lock,
   'chevron_right': Icons.chevron_right,
   'exit_to_app': Icons.exit_to_app,
