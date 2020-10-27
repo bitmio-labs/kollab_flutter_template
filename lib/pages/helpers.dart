@@ -75,7 +75,12 @@ Widget widgetFromType(PageModel page, AppState state, KollabBloc bloc) {
       final json = state.dataForKey(page.data);
       final data = json != null ? Contacts.fromJson(json) : Contacts(items: []);
       return ContactsScene(contacts: data, theme: theme);
+    case 'kollab_dashboard':
+      final json = state.dataForKey(page.data);
+      //final data = json != null ? Contacts.fromJson(json) : Contacts(items: []);
+      return PlaceholderWidget('Dashboard');
     default:
+      print('No widget found for ${page.widget}');
       return PlaceholderWidget('Unknown widget of type ${page.widget}');
   }
 }

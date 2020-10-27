@@ -22,13 +22,13 @@ class LoggedIn extends StatefulWidget {
   final KollabBloc bloc;
   final AppState appState;
   final Function() reloadState;
-  final int index;
+  final String route;
 
   LoggedIn(
       {@required this.bloc,
       @required this.appState,
       this.reloadState,
-      this.index});
+      this.route});
 
   @override
   State<StatefulWidget> createState() {
@@ -40,16 +40,16 @@ class LoggedIn extends StatefulWidget {
             body: (state) => widgetFromType(e, state, bloc)))
         .toList();
 
-    return _LoggedInState(currentIndex: index, tabs: tabs);
+    return _LoggedInState(currentRoute: route, tabs: tabs);
   }
 }
 
 class _LoggedInState extends State<LoggedIn> {
-  int currentIndex;
+  String currentRoute;
   BitmioTheme get theme => widget.bloc.model.theme;
   API get api => widget.bloc.model.api;
 
-  _LoggedInState({this.currentIndex, this.tabs});
+  _LoggedInState({this.currentRoute, this.tabs});
   final NavigationService _navigationService = locator<NavigationService>();
 
   final List<Tab> tabs;
@@ -59,14 +59,14 @@ class _LoggedInState extends State<LoggedIn> {
     return Scaffold(
       drawer: Sidebar(bloc: widget.bloc, appState: widget.appState),
       appBar: AppBar(
-        title: Text(tabs[currentIndex].name),
+        title: Text(tabForRoute(currentRoute).name),
       ),
-      body: tabs[currentIndex].body(widget.appState),
+      body: tabForRoute(currentRoute).body(widget.appState),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: StyleGuide().tabIconColor,
         onTap: onTabTapped,
-        currentIndex: currentIndex,
+        currentIndex: indexForRoute(currentRoute),
         unselectedFontSize: 12,
         selectedFontSize: 12,
         iconSize: 30,
@@ -78,6 +78,22 @@ class _LoggedInState extends State<LoggedIn> {
             .toList(),
       ),
     );
+  }
+
+  int indexForRoute(String route) {
+    final idx = tabs.indexWhere((element) => element.route == route);
+
+    if (idx == -1) {
+      return 0;
+    }
+
+    return idx;
+  }
+
+  Tab tabForRoute(String route) {
+    print('Tab for $route, $tabs');
+    return tabs.firstWhere((element) => element.route == route,
+        orElse: () => tabs.first);
   }
 
   void onTabTapped(int index) {

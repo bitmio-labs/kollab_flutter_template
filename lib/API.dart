@@ -12,7 +12,7 @@ class API {
   final String stateUrl;
 
   String get AUTH_TOKEN_KEY {
-    return 'bitmio_${id}_auth_token_v1';
+    return 'bitmio_${id}_auth_token_v2';
   }
 
   String get APP_STATE_KEY {
@@ -214,7 +214,7 @@ class CachedChecklistState {
   final String id;
 
   String get USER_STATE_KEY {
-    return 'bitmio_${id}_user_state_v1';
+    return 'bitmio_${id}_user_state_v2';
   }
 
   SharedPreferences prefs;

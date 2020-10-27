@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 class AppState {
-  Map<String, dynamic> json;
+  final Map<String, dynamic> json;
   bool isLoggedIn = true;
-  AccountModel account;
+  final AccountModel account;
 
   AppState({this.json, this.account, this.isLoggedIn});
 
@@ -17,6 +17,10 @@ class AppState {
   }
 
   dynamic dataForKey(String name) {
+    if (json == null) {
+      return null;
+    }
+
     return json[name];
   }
 }

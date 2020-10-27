@@ -156,56 +156,22 @@ class _KollabAppState extends State<KollabApp> {
             background: background,
             logo: logoImage),
         '/explore': (context) => LoggedIn(
-            appState: appState, bloc: bloc, reloadState: fetchState, index: 0),
+            appState: appState,
+            bloc: bloc,
+            reloadState: fetchState,
+            route: '/explore'),
         '/onboarding': (context) => BZOnboarding(theme: theme)
       },
       onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/home':
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState,
-                    bloc: bloc,
-                    reloadState: fetchState,
-                    index: 0),
-                transitionDuration: Duration(seconds: 0));
-          case '/cards':
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState,
-                    bloc: bloc,
-                    reloadState: fetchState,
-                    index: 1),
-                transitionDuration: Duration(seconds: 0));
-          case '/activities':
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState,
-                    bloc: bloc,
-                    reloadState: fetchState,
-                    index: 2),
-                transitionDuration: Duration(seconds: 0));
-          case '/files':
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState,
-                    bloc: bloc,
-                    reloadState: fetchState,
-                    index: 3),
-                transitionDuration: Duration(seconds: 0));
-          case '/contacts':
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LoggedIn(
-                    appState: appState,
-                    bloc: bloc,
-                    reloadState: fetchState,
-                    index: 4),
-                transitionDuration: Duration(seconds: 0));
-          default:
-            return PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Placeholder(),
-                transitionDuration: Duration(seconds: 0));
-        }
+        final route = settings.name;
+
+        return PageRouteBuilder(
+            pageBuilder: (_, __, ___) => LoggedIn(
+                appState: appState,
+                bloc: bloc,
+                reloadState: fetchState,
+                route: route),
+            transitionDuration: Duration(seconds: 0));
       },
 //        initialRoute: appState.isLoggedIn ? '/home' : '/login'
     );
