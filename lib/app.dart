@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'model/AppState.dart';
-import 'API.dart';
+import 'api.dart';
 import 'home.dart';
 import 'package:kollab_auth/kollab_auth.dart';
 

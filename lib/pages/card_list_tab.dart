@@ -1,4 +1,4 @@
-import 'package:kollab_template/API.dart';
+import '../api.dart';
 import 'package:kollab_template/kollab_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

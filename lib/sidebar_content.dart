@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'helpers/locator.dart';
 import 'services/navigation_service.dart';
 
-import 'API.dart';
+import 'api.dart';
 
 class SidebarContent extends StatelessWidget {
   final KollabBloc bloc;

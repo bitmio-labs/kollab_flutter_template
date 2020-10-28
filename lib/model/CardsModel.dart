@@ -2,7 +2,7 @@
 
 import 'package:kollab_contacts/model/contact_model.dart';
 
-import '../API.dart';
+import '../api.dart';
 import 'ChecklistsModel.dart';
 import 'DocumentsModel.dart';
 

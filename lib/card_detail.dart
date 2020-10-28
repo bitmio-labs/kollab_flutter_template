@@ -10,7 +10,7 @@ import 'styleguide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'API.dart';
+import 'api.dart';
 import 'package:kollab_contacts/kollab_contacts.dart';
 import 'shared/section_title.dart' as MySectionTitle;
 import 'globals.dart';

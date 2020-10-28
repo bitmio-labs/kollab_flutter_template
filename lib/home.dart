@@ -2,7 +2,7 @@ import 'kollab_bloc.dart';
 import 'sidebar.dart';
 import 'pages/helpers.dart';
 
-import 'API.dart';
+import 'api.dart';
 import 'styleguide.dart';
 import 'package:flutter/material.dart';
 import 'model/AppState.dart';
