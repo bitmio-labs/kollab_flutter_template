@@ -61,6 +61,11 @@ class KollabBloc {
     await api.state.setup();
     print('Setting up state');
 
+    if (theme.has_app_switcher != true) {
+      return KollabAppModel(
+          theme: theme, api: api, isLoading: false, appDirectory: null);
+    }
+
     final appDirectory = await _fetchAppDirectory(theme.app_directory_url);
 
     return KollabAppModel(

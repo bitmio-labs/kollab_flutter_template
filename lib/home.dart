@@ -91,7 +91,6 @@ class _LoggedInState extends State<LoggedIn> {
   }
 
   Tab tabForRoute(String route) {
-    print('Tab for $route, $tabs');
     return tabs.firstWhere((element) => element.route == route,
         orElse: () => tabs.first);
   }
