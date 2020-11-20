@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "a683817b75e05bf3101f0af5cbb9ce92",
-"index.html": "8f2c117f7990c79184af36c76d1388a7",
-"/": "8f2c117f7990c79184af36c76d1388a7",
-"main.dart.js": "1e5aee67ee8796a014d6e0b346d760fb",
+"index.html": "edd6056b8b50ef7e42cb68dce19ecf00",
+"/": "edd6056b8b50ef7e42cb68dce19ecf00",
+"main.dart.js": "9458e538946f6dccedbb14a88676d705",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
@@ -26,7 +26,7 @@ const RESOURCES = {
 "assets/images/lake.jpg": "236690c07321de26550682c399675fb4",
 "assets/images/welcome.jpg": "b849316e28d7b61a36a1c7880ebd75b0",
 "assets/AssetManifest.json": "63e3a43af71bd3479af3b2ddda96383d",
-"assets/NOTICES": "8d0b6f4e455d688003d90aadb85c75b1",
+"assets/NOTICES": "3960621449a80cfe4651bd6459183d87",
 "assets/FontManifest.json": "76b068e122dc1e1917c80a368b45bf47",
 "assets/packages/kollab_contacts/lib/model/contact_model_examples.json": "733d4f250ceebb68ef5212b85266a4cd",
 "assets/packages/material_design_icons_flutter/lib/fonts/materialdesignicons-webfont.ttf": "b0fd91bb29dcb296a9a37f8bda0a2d85",
