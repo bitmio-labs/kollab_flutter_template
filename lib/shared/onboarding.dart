@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kollab_template/kollab_bloc.dart';
+import 'package:kollab_template/model/AppState.dart';
 import 'dart:ui';
 
+import '../sidebar.dart';
 import 'blurred_image.dart';
 
 class OnboardingPageModel {
@@ -27,6 +30,8 @@ class Onboarding extends StatefulWidget {
   final String skipLabel;
   final Function completionHandler;
   final String completionRoute;
+  final KollabBloc bloc;
+  final AppState appState;
 
   Onboarding(
       {this.model,
@@ -34,7 +39,9 @@ class Onboarding extends StatefulWidget {
       this.continueLabel = "Continue",
       this.skipLabel = "Skip",
       this.completionHandler,
-      this.completionRoute = '/'});
+      this.completionRoute = '/',
+      @required this.bloc,
+      @required this.appState});
 
   @override
   State<StatefulWidget> createState() {
@@ -85,31 +92,42 @@ class _OnboardingState extends State<Onboarding> {
                   color: Theme.of(context).colorScheme.onSecondary,
                 )));
 
-    return Stack(
-      alignment: AlignmentDirectional.bottomCenter,
-      children: <Widget>[
-        pageView,
-        Container(
-          height: 150,
-          margin: EdgeInsets.only(bottom: 10, left: 20, right: 20),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 15, child: circleNav),
-              SizedBox(height: 20),
-              SizedBox(
-                  width: double.infinity,
-                  child: RaisedButton(
-                    onPressed: () => nextPage(context),
-                    child: Text(
-                        isLastPage ? widget.startLabel : widget.continueLabel),
-                  )),
-              SizedBox(height: 10),
-              isLastPage ? Opacity(opacity: 0, child: skipButton) : skipButton
-            ],
-          ),
-        )
-      ],
-    );
+    return Scaffold(
+        backgroundColor: Colors.transparent,
+        drawer: Sidebar(bloc: widget.bloc, appState: widget.appState),
+        appBar: new AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        extendBodyBehindAppBar: true,
+        body: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: <Widget>[
+            pageView,
+            Container(
+              height: 150,
+              margin: EdgeInsets.only(bottom: 10, left: 20, right: 20),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 15, child: circleNav),
+                  SizedBox(height: 20),
+                  SizedBox(
+                      width: double.infinity,
+                      child: RaisedButton(
+                        onPressed: () => nextPage(context),
+                        child: Text(isLastPage
+                            ? widget.startLabel
+                            : widget.continueLabel),
+                      )),
+                  SizedBox(height: 10),
+                  isLastPage
+                      ? Opacity(opacity: 0, child: skipButton)
+                      : skipButton
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
   skip(BuildContext context) {
@@ -179,51 +197,43 @@ class OnboardingPage extends StatelessWidget {
               child: model.logo,
             )
           ]),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: new AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-          ),
-          body: Stack(children: <Widget>[
-            Positioned(
-              top: 80,
-              left: 20,
-              right: 20,
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                height: 200,
-                alignment: Alignment.center,
-                child: model.widget,
-              ),
+        Stack(children: <Widget>[
+          Positioned(
+            top: 80,
+            left: 20,
+            right: 20,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 200,
+              alignment: Alignment.center,
+              child: model.widget,
             ),
-            Positioned(
-              bottom: 180,
-              left: 0,
-              right: 0,
-              child: BlurredBox(
-                  child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(model.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white)),
-                      SizedBox(height: 10),
-                      Text(model.description,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              .copyWith(color: Colors.white))
-                    ]),
-              )),
-            )
-          ]),
-        )
+          ),
+          Positioned(
+            bottom: 180,
+            left: 0,
+            right: 0,
+            child: BlurredBox(
+                child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(model.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(color: Colors.white)),
+                    SizedBox(height: 10),
+                    Text(model.description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            .copyWith(color: Colors.white))
+                  ]),
+            )),
+          )
+        ]),
       ],
     );
   }

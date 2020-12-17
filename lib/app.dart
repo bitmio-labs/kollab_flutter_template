@@ -160,7 +160,8 @@ class _KollabAppState extends State<KollabApp> {
             bloc: bloc,
             reloadState: fetchState,
             route: '/explore'),
-        '/onboarding': (context) => BZOnboarding(theme: theme)
+        '/onboarding': (context) =>
+            BZOnboarding(theme: theme, bloc: bloc, appState: appState)
       },
       onGenerateRoute: (settings) {
         final route = settings.name;
